@@ -23,14 +23,14 @@ const Navbar = () => {
     return (
         <div className='bg-black flex justify-between items-center h-24 w-full mx-auto px-4 text-white'>
             {/* Logo */}
-            <h1 className='w-full text-3xl font-bold text-white'>GUN SHOP</h1>
+            <h1 className='w-full text-3xl font-thin text-white '>GUN SHOP</h1>
 
             {/* Desktop Navigation */}
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
                     <li
                         key={item.id}
-                        className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
+                        className='p-4 hover:bg-[#ff4d4d] rounded-xl m-2 cursor-pointer duration-300 hover:text-white'
                     >
                         {item.text}
                     </li>
