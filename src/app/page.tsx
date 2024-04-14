@@ -4,6 +4,7 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import Footer from './components/Footer';
 
 export default function Home() {
   const control = useAnimation();
@@ -21,7 +22,7 @@ export default function Home() {
         });
       },
       {
-        threshold: 0.5 // Adjust threshold to when you want the animation to start
+        threshold: 0.3
       }
     );
 
@@ -180,10 +181,9 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+        <Footer />
       </div>
+
     </div>
-
-
-
   );
 }

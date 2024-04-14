@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Link from 'next/link';
 
 const Navbar = () => {
     // State to manage the navbar's visibility
@@ -13,11 +14,11 @@ const Navbar = () => {
 
     // Array containing navigation items
     const navItems = [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'Company' },
-        { id: 3, text: 'Resources' },
-        { id: 4, text: 'About' },
-        { id: 5, text: 'Contact' },
+        { id: 1, text: 'Home', url: '../' },
+        { id: 2, text: 'Gun', url: '../gun' },
+        // { id: 3, text: 'Resources', url: '/resources' },
+        { id: 3, text: 'About', url: '/about' },
+        { id: 4, text: 'Contact', url: '/contact' },
     ];
 
     return (
@@ -28,12 +29,14 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
-                    <li
-                        key={item.id}
-                        className='p-4 hover:bg-[#ff4d4d] rounded-xl m-2 cursor-pointer duration-300 hover:text-white'
-                    >
-                        {item.text}
-                    </li>
+                    <Link key={item.id} href={`/${item.url.toLowerCase()}`}>
+                        <div
+                            key={item.id}
+                            className='p-4 hover:bg-[#ff4d4d] rounded-xl m-2 cursor-pointer duration-300 hover:text-white'
+                        >
+                            {item.text}
+                        </div>
+                    </Link>
                 ))}
             </ul>
 
@@ -55,12 +58,14 @@ const Navbar = () => {
 
                 {/* Mobile Navigation Items */}
                 {navItems.map(item => (
-                    <li
-                        key={item.id}
-                        className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
-                    >
-                        {item.text}
-                    </li>
+                    <Link key={item.id} href={`/${item.url.toLowerCase()}`}>
+                        <div
+                            key={item.id}
+                            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+                        >
+                            {item.text}
+                        </div>
+                    </Link>
                 ))}
             </ul>
         </div>
