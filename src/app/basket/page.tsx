@@ -44,7 +44,7 @@ export default function Basket() {
     // Product data could be fetched from an API or defined as a constant
 
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-screen cursor-crosshair">
             <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
@@ -52,7 +52,7 @@ export default function Basket() {
                 exit={{ opacity: 0 }}
                 className="container mx-auto my-8 p-4 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50"
             >
-                <div className="grid md:grid-cols-2 gap-8 items-center ">
+                <div className="grid md:grid-cols-2 gap-8 items-center cursor-crosshair">
                     <Image
                         src={"/gun-logo.png"}
                         alt="Basket"
@@ -64,7 +64,7 @@ export default function Basket() {
                         initial="hidden"
                         animate={control}
                         variants={fadeInClient}
-                        className="text-white"
+                        className="text-white "
                     >
                         <h1 className="text-4xl font-bold">Your Basket</h1>
                         <p className="text-lg">You have no items in your basket.</p>
@@ -72,9 +72,13 @@ export default function Basket() {
                             <div className="text-[#00df9a]">Go back to the shop</div>
                         </Link>
                     </motion.div>
+                    <div className="cursor-crosshair">
+                        Hover over me to see the custom cursor!
+                    </div>
                 </div>
             </motion.div>
             <Footer />
         </div>
     );
 }
+

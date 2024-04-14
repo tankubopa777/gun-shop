@@ -5,10 +5,12 @@ import Navbar from "./components/Navbar";
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Footer from './components/Footer';
+import Cursor from './components/Cursor';
 
 export default function Home() {
   const control = useAnimation();
   const ref = useRef(null);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +81,8 @@ export default function Home() {
 
 
   return (
-    <div>
+    <div className=''>
+      <Cursor />
       <Navbar />
       <motion.div
         variants={fadeIn('right', 0.5)}
@@ -110,7 +113,7 @@ export default function Home() {
               variants={fadeInClient}
               initial="hidden"
               animate={control}
-              className='bg-gray-900 rounded-xl shadow-lg p-6 h-full flex flex-col justify-between'>
+              className='bg-gray-900 rounded-xl shadow-lg p-6 h-full flex flex-col justify-between interactive'>
               <h1 className='text-white text-4xl font-semibold'>Smith & Wesson</h1>
               <p className='text-gray-300'>
                 Smith & Wesson Brands, Inc. is an American manufacturer of firearms, ammunition and restraints. The corporate headquarters is in Springfield, Massachusetts. Smith & Wesson was founded by Horace Smith and Daniel B. Wesson as the "Smith & Wesson Revolver Company" in 1852 after their previous company, also called the "Smith & Wesson Company" and later renamed as "Volcanic Repeating Arms", was sold to Oliver Winchester and became the Winchester Repeating Arms Company.
