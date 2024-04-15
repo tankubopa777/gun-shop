@@ -114,7 +114,7 @@ export default function Gun() {
 
 
     return (
-        <div>
+        <div className='bg-black'>
             <Navbar />
             <motion.div
                 initial="hidden"
