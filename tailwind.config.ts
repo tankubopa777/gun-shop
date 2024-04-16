@@ -19,6 +19,9 @@ const config: Config = {
       fontSize: {
         'responsive': 'clamp(1.2rem, 4vw + 1rem, 6rem)',
       },
+      animation: {
+        slideIn: 'slideIn 10s linear infinite',
+      },
     },
   },
   plugins: [],

@@ -112,58 +112,68 @@ export default function Home() {
           initial="hidden"
           animate={control}
           className='container mx-auto'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-            <div
-              className='bg-gray-900 rounded-xl shadow-lg p-6 h-full flex flex-col justify-between interactive'>
-              <h1 className='text-white text-4xl font-semibold'>Smith & Wesson</h1>
-              <p className='text-gray-300'>
-                Smith & Wesson Brands, Inc. is an American manufacturer of firearms, ammunition and restraints. The corporate headquarters is in Springfield, Massachusetts. Smith & Wesson was founded by Horace Smith and Daniel B. Wesson as the "Smith & Wesson Revolver Company" in 1852 after their previous company, also called the "Smith & Wesson Company" and later renamed as "Volcanic Repeating Arms", was sold to Oliver Winchester and became the Winchester Repeating Arms Company.
-              </p>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 '>
+            <div className=''>
+              <Image src='/s&w.jpeg' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt-20' />
             </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Ruger</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
+            <div className=''>
+              <Image src='/Ruger-Symbol.png' alt='Smith & Wesson' width={500} height={800} className='rounded-lg mt-20' />
             </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>SIG SAUER</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
+            <div className=''>
+              <Image src='/sigsauer.png' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt' />
             </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Springfield Armory</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
+            <div className=''>
+              <Image src='/springfield.jpeg' alt='Smith & Wesson' width={500} height={400} className='rounded-lg' />
             </div>
           </div>
         </motion.div>
+
+        <div className='mt-10'>
+          <h1 className='marquee text-9xl'>WEAPON CATEGORY</h1>
+        </div>
 
         {/* Gun type */}
         <motion.div
           variants={fadeInClient}
           initial="hidden"
           animate={control}
-          className='container mx-auto mt-10'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Pistol</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
+          className='container mx-auto mt-10 bg-black'>
+          <div className='grid grid-cols-4 '>
+            <div className='col-span-2 mr-5'>
+              <img src='/pistalbg.jpeg' alt='Smith & Wesson'
+                width={1400}
+                height={900}
+                className='w-full h-full '
+              />
             </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Rifle</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Shotgun</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </div>
-            <div
-              className='bg-gray-800 rounded-lg p-4'>
-              <h1 className='text-white text-4xl'>Submachine Gun</h1>
-              <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
+            <div className='col-span-2 grid-cols-2 grid gap-4'>
+              <div className="relative">
+                <img src="/smgbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                  <p className="text-white text-xl">SMG</p>
+                </div>
+              </div>
+
+              <div className="relative">
+                <img src="/shotgunbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                  <p className="text-white text-xl">SHOTGUN</p>
+                </div>
+              </div>
+
+              <div className="relative">
+                <img src="/sniperbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                  <p className="text-white text-xl">SNIPER</p>
+                </div>
+              </div>
+
+              <div className="relative">
+                <img src="/m4a1bg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                  <p className="text-white text-xl">ASSAULT</p>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
