@@ -39,7 +39,7 @@ const RelatedProducts = () => {
                             height={500}
                             className="rounded-md object-contain"
                         />
-                        <h3 className="text-lg font-semibold mt-3">{product.name}</h3>
+                        <h3 className="text-lg font-semibold mt-3 text-white">{product.name}</h3>
                         <p className="text-gray-600">{product.priceRange}</p>
                         <div className="flex">
                             {'★'.repeat(product.rating).padEnd(5, '☆')}

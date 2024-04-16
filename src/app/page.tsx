@@ -106,84 +106,67 @@ export default function Home() {
       </motion.div>
 
       {/* ours cilent */}
-      <div ref={ref} className='w-full'>
-        <div className='container mx-auto'>
+      <div ref={ref} className='w-full bg-black'>
+        <motion.div
+          variants={fadeInClient}
+          initial="hidden"
+          animate={control}
+          className='container mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            <div
               className='bg-gray-900 rounded-xl shadow-lg p-6 h-full flex flex-col justify-between interactive'>
               <h1 className='text-white text-4xl font-semibold'>Smith & Wesson</h1>
               <p className='text-gray-300'>
                 Smith & Wesson Brands, Inc. is an American manufacturer of firearms, ammunition and restraints. The corporate headquarters is in Springfield, Massachusetts. Smith & Wesson was founded by Horace Smith and Daniel B. Wesson as the "Smith & Wesson Revolver Company" in 1852 after their previous company, also called the "Smith & Wesson Company" and later renamed as "Volcanic Repeating Arms", was sold to Oliver Winchester and became the Winchester Repeating Arms Company.
               </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Ruger</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>SIG SAUER</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Springfield Armory</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Gun type */}
-        <div className='container mx-auto mt-10'>
+        <motion.div
+          variants={fadeInClient}
+          initial="hidden"
+          animate={control}
+          className='container mx-auto mt-10'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Pistol</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Rifle</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Shotgun</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
-            <motion.div
-              variants={fadeInClient}
-              initial="hidden"
-              animate={control}
+            </div>
+            <div
               className='bg-gray-800 rounded-lg p-4'>
               <h1 className='text-white text-4xl'>Submachine Gun</h1>
               <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.</p>
-            </motion.div>
+            </div>
           </div>
-        </div>
+        </motion.div>
         <Footer />
       </div>
 

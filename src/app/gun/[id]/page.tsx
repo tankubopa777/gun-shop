@@ -40,14 +40,14 @@ export default function GunDetail() {
     }
 
     return (
-        <div>
+        <div className='bg-black'>
             <Cursor />
             <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
                 exit={{ opacity: 0 }}
-                className="container mx-auto my-8 p-4"
+                className="container mx-auto my-8 p-4 "
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <Image
