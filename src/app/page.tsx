@@ -97,10 +97,10 @@ export default function Home() {
           height={2000}
           className="z-0"
         />
-        <div>
-          <p className="absolute transform z-10 text-white font-thin text-8xl top-10 left-10">
+        <div className=''>
+          <p className="absolute transform z-10 text-white font-thin text-8xl top-10 left-10 text-responsive">
             Welcome to our Store
-            <span className="text-7xl block">The best gun shop in town</span>
+            <span className="text-7xl block text-responsive">The best gun shop in town</span>
           </p>
         </div>
       </motion.div>

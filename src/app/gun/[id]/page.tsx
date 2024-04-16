@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar';
 import { useParams } from 'next/navigation';
 import RelatedProducts from '@/app/components/RelateProduct';
 import Footer from '@/app/components/Footer';
+import Cursor from '@/app/components/Cursor';
 
 const fetchGunDetails = async (id: string) => {
     return new Promise((resolve) => {
@@ -40,6 +41,7 @@ export default function GunDetail() {
 
     return (
         <div>
+            <Cursor />
             <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}

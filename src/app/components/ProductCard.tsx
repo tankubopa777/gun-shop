@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ProductCard({ product }: { product: any }) {
     return (
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/gun/${product.id}`}>
             <div className='bg-gray-800 rounded-xl shadow-lg p-6 h-full flex flex-col justify-between'>
                 <div>
                     <Image

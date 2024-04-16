@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
+import Cursor from '../components/Cursor';
 
 
 export default function Gun() {
@@ -115,6 +116,7 @@ export default function Gun() {
 
     return (
         <div>
+            <Cursor />
             <Navbar />
             <motion.div
                 initial="hidden"

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
+import Cursor from '../components/Cursor';
 
 
 export default function Payment() {
@@ -47,6 +48,7 @@ export default function Payment() {
 
     return (
         <div>
+            <Cursor />
             <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}

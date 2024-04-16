@@ -16,6 +16,9 @@ const config: Config = {
       cursor: {
         crosshair: 'url(/image.png), auto',
       },
+      fontSize: {
+        'responsive': 'clamp(1.2rem, 4vw + 1rem, 6rem)',
+      },
     },
   },
   plugins: [],

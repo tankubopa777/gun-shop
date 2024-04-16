@@ -1,22 +1,29 @@
 "use client";
 import React, { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineMenu, AiOutlineShoppingCart } from 'react-icons/ai';  // Import ShoppingCart icon
 import Link from 'next/link';
 
 const Navbar = () => {
-    // State to manage the navbar's visibility
+    // State to manage the navbar's visibility and basket items
     const [nav, setNav] = useState(false);
+    const [basketItems, setBasketItems] = useState([]);
 
     // Toggle function to handle the navbar's display
     const handleNav = () => {
         setNav(!nav);
     };
 
+    // Function to handle adding items to the basket
+    // const addToBasket = () => {
+    //     // Example function to add an item
+    //     const newItem = { id: basketItems.length + 1, name: "New Item" };
+    //     setBasketItems([...basketItems, newItem]);
+    // };
+
     // Array containing navigation items
     const navItems = [
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
-        // { id: 3, text: 'Resources', url: '/resources' },
         { id: 3, text: 'About', url: '/about' },
         { id: 4, text: 'Contact', url: '/contact' },
     ];
@@ -38,6 +45,11 @@ const Navbar = () => {
                         </div>
                     </Link>
                 ))}
+                {/* Basket Icon */}
+                <div className="cursor-pointer p-4"  >
+                    <AiOutlineShoppingCart size={20} />
+                    {/* <span>{basketItems.length}</span>  */}
+                </div>
             </ul>
 
             {/* Mobile Navigation Icon */}
