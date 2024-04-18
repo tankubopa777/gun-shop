@@ -1,80 +1,70 @@
-// basket page
 "use client";
 import React from 'react';
-import Image from "next/image";
-import Link from "next/link";
-import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Image from 'next/image';
+
+type BasketItem = {
+    id: string;
+    name: string;
+    detail: string;
+    price: number;
+};
+
+const basketItems: BasketItem[] = [
+    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 },
+    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 },
+    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 }
+];
 
 export default function Basket() {
-    const control = useAnimation();
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        control.start("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.3 }
-        );
-
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, [control]);
-
-    const fadeInClient = {
-        hidden: { opacity: 0, y: 50 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-    };
-
-    // Product data could be fetched from an API or defined as a constant
 
     return (
-        <div className="w-full h-screen cursor-crosshair">
+        <div className="w-full min-h-screen bg-gray-800 text-white">
             <Navbar />
             <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="container mx-auto my-8 p-4 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50"
+                className="container mx-auto my-8 p-4"
             >
-                <div className="grid md:grid-cols-2 gap-8 items-center cursor-crosshair">
-                    <Image
-                        src={"/gun-logo.png"}
-                        alt="Basket"
-                        width={500}
-                        height={500}
-                    />
-                    <motion.div
-                        ref={ref}
-                        initial="hidden"
-                        animate={control}
-                        variants={fadeInClient}
-                        className="text-white "
-                    >
-                        <h1 className="text-4xl font-bold">Your Basket</h1>
-                        <p className="text-lg">You have no items in your basket.</p>
-                        <Link href="/gun">
-                            <div className="text-[#00df9a]">Go back to the shop</div>
-                        </Link>
-                    </motion.div>
-                    <div className="cursor-crosshair">
-                        Hover over me to see the custom cursor!
-                    </div>
+                <div className="flex flex-col items-center">
+                    <h1 className="text-4xl font-bold mb-6">My Basket</h1>
+                    {basketItems.length > 0 ? (
+                        <div className="w-full">
+                            {basketItems.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="flex items-center justify-between mb-4 p-4 bg-gray-700"
+                                >
+                                    {/* Image placeholder for the gun */}
+                                    <Image src="/background/smgbg.jpeg" alt="Gun" width={100} height={100} />
+                                    <div className="flex-1 mx-4">
+                                        <p className="font-bold">{item.name}</p>
+                                        <p>{item.detail}</p>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <button className="mx-2">-</button>
+                                        <span>1</span>
+                                        <button className="mx-2">+</button>
+                                    </div>
+                                    <div>
+                                        <p>{item.price} Baht</p>
+                                    </div>
+                                </div>
+                            ))}
+                            <button className="px-6 py-2 bg-green-500 hover:bg-green-600 transition duration-300">
+                                Check out
+                            </button>
+                        </div>
+                    ) : (
+                        <p>You have no items in your basket.</p>
+                    )}
+                    <Link href="/shop">
+                        <div className="text-green-400 mt-4">Go back to the shop</div>
+                    </Link>
                 </div>
             </motion.div>
             <Footer />

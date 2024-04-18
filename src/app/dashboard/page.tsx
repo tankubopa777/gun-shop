@@ -86,7 +86,7 @@ export default function Home() {
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center ">
                     <Image
-                        src={"/gun-logo.png"}
+                        src={"/background/gun-logo.png"}
                         alt="Home"
                         width={500}
                         height={500}

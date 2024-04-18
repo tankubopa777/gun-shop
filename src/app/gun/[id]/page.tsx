@@ -8,6 +8,8 @@ import { useParams } from 'next/navigation';
 import RelatedProducts from '@/app/components/RelateProduct';
 import Footer from '@/app/components/Footer';
 import Cursor from '@/app/components/Cursor';
+import Transition from '@/app/components/Transition';
+import UserReviews from '@/app/components/UserReviews';
 
 const fetchGunDetails = async (id: string) => {
     return new Promise((resolve) => {
@@ -16,7 +18,7 @@ const fetchGunDetails = async (id: string) => {
                 id: id,
                 name: "M82A1",
                 description: "The M82A1 is a recoil-operated, semi-automatic anti-materiel rifle developed by the American Barrett Firearms Manufacturing company. It is used by many units and armies around the world. Despite its designation as an anti-materiel rifle, it is used by some armed forces as an anti-personnel system.",
-                imageUrl: "/path-to-gun-image.jpg"
+                imageUrl: "/background/gun_image.jpg",
             });
         }, 500);
     });
@@ -26,6 +28,51 @@ export default function GunDetail() {
     const [gunDetails, setGunDetails] = useState<any>(null);
     const params = useParams();
     const id = params.id ? params.id.toString() : '';
+    const reviews = [
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/tanprofile.jpeg',
+        },
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/ohmprofile.png',
+        },
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/tanprofile.jpeg',
+        },
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/ohmprofile.png',
+        },
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/tanprofile.jpeg',
+        },
+        {
+            username: 'tan',
+            date: '2023-04-17',
+            reviewPoints: 5,
+            reviewText: 'Best gun shop, good take care.',
+            userImageUrl: '/profile/ohmprofile.png',
+        },
+    ];
+
 
     useEffect(() => {
         if (id) {
@@ -41,6 +88,7 @@ export default function GunDetail() {
 
     return (
         <div className='bg-black'>
+            <Transition />
             <Cursor />
             <Navbar />
             <motion.div
@@ -51,7 +99,7 @@ export default function GunDetail() {
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <Image
-                        src={"/sniper_rifle.jpg"}
+                        src={"/background/sniper_rifle.jpg"}
                         alt={gunDetails.name}
                         width={500}
                         height={500}
@@ -75,6 +123,16 @@ export default function GunDetail() {
                         </div>
                     </div>
 
+                </div>
+                <div className="mt-8">
+                    <h2 className="text-2xl text-white">USER REVIEW</h2>
+                </div>
+                <div>
+                    <div className="space-y-4 grid grid-cols-3">
+                        {reviews.map((review, index) => (
+                            <UserReviews key={index} {...review} />
+                        ))}
+                    </div>
                 </div>
                 <div className='w-full'>
                     <RelatedProducts />

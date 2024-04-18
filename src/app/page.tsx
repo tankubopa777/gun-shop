@@ -6,6 +6,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
+import Transition from './components/Transition';
 
 export default function Home() {
   const control = useAnimation();
@@ -82,6 +83,7 @@ export default function Home() {
 
   return (
     <div className=''>
+      <Transition />
       <Cursor />
       <Navbar />
       <motion.div
@@ -91,7 +93,7 @@ export default function Home() {
         exit="hidden"
         className="relative flex flex-col items-center justify-center h-full">
         <Image
-          src="/sniper_rifle.jpg"
+          src="/background/sniper_rifle.jpg"
           alt="Gun Shop"
           width={2200}
           height={2000}
@@ -114,16 +116,16 @@ export default function Home() {
           className='container mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 '>
             <div className=''>
-              <Image src='/s&w.jpeg' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt-20' />
+              <Image src='/background/s&w.jpeg' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt-20' />
             </div>
             <div className=''>
-              <Image src='/Ruger-Symbol.png' alt='Smith & Wesson' width={500} height={800} className='rounded-lg mt-20' />
+              <Image src='/background/Ruger-Symbol.png' alt='Smith & Wesson' width={500} height={800} className='rounded-lg mt-20' />
             </div>
             <div className=''>
-              <Image src='/sigsauer.png' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt' />
+              <Image src='/background/sigsauer.png' alt='Smith & Wesson' width={500} height={500} className='rounded-lg mt' />
             </div>
             <div className=''>
-              <Image src='/springfield.jpeg' alt='Smith & Wesson' width={500} height={400} className='rounded-lg' />
+              <Image src='/background/springfield.jpeg' alt='Smith & Wesson' width={500} height={400} className='rounded-lg' />
             </div>
           </div>
         </motion.div>
@@ -139,39 +141,39 @@ export default function Home() {
           animate={control}
           className='container mx-auto mt-10 bg-black'>
           <div className='grid grid-cols-4 '>
-            <div className='col-span-2 mr-5'>
-              <img src='/pistalbg.jpeg' alt='Smith & Wesson'
-                width={1400}
-                height={900}
-                className='w-full h-full '
-              />
+            <div className="col-span-2 mr-5 relative w-full h-full">
+              <img src="/background/pistalbg.jpeg" alt="Smith & Wesson" className="w-full h-full object-cover" />
+              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-75 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                <p className="text-white text-xl">PISTOL</p>
+              </div>
             </div>
+
             <div className='col-span-2 grid-cols-2 grid gap-4'>
               <div className="relative">
-                <img src="/smgbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <img src="/background/smgbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">SMG</p>
+                  <p className="text-white text-xl">SUBMACHINE GUN</p>
                 </div>
               </div>
 
               <div className="relative">
-                <img src="/shotgunbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <img src="/background/shotgunbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
                   <p className="text-white text-xl">SHOTGUN</p>
                 </div>
               </div>
 
               <div className="relative">
-                <img src="/sniperbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <img src="/background/sniperbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
                   <p className="text-white text-xl">SNIPER</p>
                 </div>
               </div>
 
               <div className="relative">
-                <img src="/m4a1bg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                <img src="/background/m4a1bg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">ASSAULT</p>
+                  <p className="text-white text-xl">ASSAULT RIFFLE</p>
                 </div>
               </div>
             </div>

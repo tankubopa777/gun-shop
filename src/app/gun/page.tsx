@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import Cursor from '../components/Cursor';
+import Transition from '../components/Transition';
 
 
 export default function Gun() {
@@ -52,7 +53,7 @@ export default function Gun() {
             name: 'P320 9MM NITRON COMPACT',
             description: 'A compact 9MM pistol known for its versatility and reliability.',
             priceRange: '$450.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 4
         },
         {
@@ -60,7 +61,7 @@ export default function Gun() {
             name: 'M60 MACHINE GUN',
             description: 'A legendary machine gun with reliable performance in automatic firing.',
             priceRange: '$1,299.00 - $1,399.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 5
         },
         {
@@ -68,7 +69,7 @@ export default function Gun() {
             name: 'AMMO XPERT22X',
             description: 'High-quality 22 caliber cartridges designed for precision.',
             priceRange: '$15.00 - $23.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 4
         },
         {
@@ -76,7 +77,7 @@ export default function Gun() {
             name: 'BULLETPROOF VEST',
             description: 'Advanced body armor offering superior protection.',
             priceRange: '$220.00 - $230.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 5
         },
         {
@@ -84,7 +85,7 @@ export default function Gun() {
             name: 'LUGER PISTOL SP5K PDW',
             description: 'A compact and versatile PDW pistol for personal defense.',
             priceRange: '$729.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 4.5
         },
         {
@@ -92,7 +93,7 @@ export default function Gun() {
             name: 'ROUND SEMI AUTOMATIC RIFLE',
             description: 'A semi-automatic rifle with exceptional round accuracy.',
             priceRange: '$1,799.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 4.5
         },
         {
@@ -100,7 +101,7 @@ export default function Gun() {
             name: 'P320 SEMI-AUTOMATIC PISTOL',
             description: 'A semi-automatic pistol with a modular design for custom configurations.',
             priceRange: '$845.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 5
         },
         {
@@ -108,7 +109,7 @@ export default function Gun() {
             name: 'AR15 RIFLE BUTTSTOCK',
             description: 'Durable and adjustable buttstock for AR15 rifles.',
             priceRange: '$99.00',
-            image: '/sniper_rifle.jpg',
+            image: '/background/sniper_rifle.jpg',
             rating: 4.5
         }
     ];
@@ -116,6 +117,7 @@ export default function Gun() {
 
     return (
         <div className='bg-black'>
+            <Transition />
             <Cursor />
             <Navbar />
             <motion.div
@@ -125,7 +127,7 @@ export default function Gun() {
                 className="relative flex flex-col items-center justify-center h-screen">
                 {/* Replace with your actual hero image path */}
                 <Image
-                    src="/gun_weapon.jpg"
+                    src="/background/gun_weapon.jpg"
                     alt="Gun Shop"
                     layout='fill'
                     objectFit='cover'

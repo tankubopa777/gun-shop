@@ -58,7 +58,7 @@ export default function Payment() {
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <Image
-                        src={"/sniper_rifle.jpg"}
+                        src={"/background/sniper_rifle.jpg"}
                         alt="Payment"
                         width={500}
                         height={500}

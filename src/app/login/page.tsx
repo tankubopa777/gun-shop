@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import Transition from '../components/Transition';
 
 export default function Login() {
     const control = useAnimation();
@@ -42,6 +43,7 @@ export default function Login() {
 
     return (
         <div className="w-full h-screen">
+            <Transition />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
@@ -50,7 +52,7 @@ export default function Login() {
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center ">
                     <Image
-                        src={"/gun-logo.png"}
+                        src={"/background/gun-logo.png"}
                         alt="Login"
                         width={500}
                         height={500}
