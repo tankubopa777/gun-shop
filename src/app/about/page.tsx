@@ -70,7 +70,7 @@ const AboutPage = () => {
     };
 
     return (
-        <div>
+        <div className='w-full h-full bg-black'>
             <Transition />
             <Cursor />
             <Navbar />
@@ -79,7 +79,7 @@ const AboutPage = () => {
                 initial="hidden"
                 animate={control}
                 variants={fadeInClient}
-                className="container mx-auto px-4 pt-16 mb-24">
+                className="container mx-auto px-4 pt-16 mb-24 ">
                 <h1 className="text-4xl font-bold text-center mb-12">About Us</h1>
                 <div className="flex flex-wrap justify-center gap-8">
                     {/* Creator 1 */}

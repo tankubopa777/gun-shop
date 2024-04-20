@@ -76,7 +76,7 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-screen bg-black">
             <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}

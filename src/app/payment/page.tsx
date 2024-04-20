@@ -8,6 +8,9 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Cursor from '../components/Cursor';
+import AddressForm from '../components/AddressForm';
+import PaymentSummary from '../components/PaymentSummary';
+import Footer from '../components/Footer';
 
 
 export default function Payment() {
@@ -47,7 +50,7 @@ export default function Payment() {
     };
 
     return (
-        <div>
+        <div className='bg-black'>
             <Cursor />
             <Navbar />
             <motion.div
@@ -56,20 +59,12 @@ export default function Payment() {
                 exit={{ opacity: 0 }}
                 className="container mx-auto my-8 p-4"
             >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                    <Image
-                        src={"/background/sniper_rifle.jpg"}
-                        alt="Payment"
-                        width={500}
-                        height={500}
-                        className="rounded-md"
-                    />
-                    <div>
-                        <h1 className="text-2xl font-bold text-white">Payment</h1>
-                        <p className="text-lg text-white mt-2">Payment page</p>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <AddressForm />
+                    <PaymentSummary />
                 </div>
             </motion.div>
+            <Footer />
         </div>
     );
 }

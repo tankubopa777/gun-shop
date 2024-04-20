@@ -22,7 +22,7 @@ const basketItems: BasketItem[] = [
 export default function Basket() {
 
     return (
-        <div className="w-full min-h-screen bg-gray-800 text-white">
+        <div className="w-full min-h-screen bg-black text-white ">
             <Navbar />
             <motion.div
                 initial={{ opacity: 0 }}

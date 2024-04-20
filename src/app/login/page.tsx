@@ -42,7 +42,7 @@ export default function Login() {
     };
 
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-screen bg-black">
             <Transition />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
