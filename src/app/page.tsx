@@ -2,11 +2,13 @@
 import React from 'react';
 import Image from "next/image";
 import Navbar from "./components/Navbar";
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
 import Transition from './components/Transition';
+import Link from 'next/link';
+import CounterExp from './components/CouterExp';
 
 export default function Home() {
   const control = useAnimation();
@@ -142,46 +144,67 @@ export default function Home() {
           className='container mx-auto mt-10 bg-black'>
           <div className='grid grid-cols-4 '>
             <div className="col-span-2 mr-5 relative w-full h-full">
-              <img src="/background/pistalbg.jpeg" alt="Smith & Wesson" className="w-full h-full object-cover" />
-              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-75 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                <p className="text-white text-xl">PISTOL</p>
-              </div>
+              <Link href="../gun" >
+                <img src="/background/pistalbg.jpeg" alt="Smith & Wesson" className="w-full h-full object-cover" />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-75 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                  <p className="text-white text-xl">PISTOL</p>
+                </div>
+              </Link>
             </div>
 
+
             <div className='col-span-2 grid-cols-2 grid gap-4'>
+
               <div className="relative">
-                <img src="/background/smgbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">SUBMACHINE GUN</p>
-                </div>
+                <Link href="../gun" >
+                  <img src="/background/smgbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                    <p className="text-white text-xl">SUBMACHINE GUN</p>
+                  </div>
+                </Link>
               </div>
 
               <div className="relative">
-                <img src="/background/shotgunbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">SHOTGUN</p>
-                </div>
+                <Link href="../gun" >
+                  <img src="/background/shotgunbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                    <p className="text-white text-xl">SHOTGUN</p>
+                  </div>
+                </Link>
               </div>
 
               <div className="relative">
-                <img src="/background/sniperbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">SNIPER</p>
-                </div>
+                <Link href="../gun" >
+                  <img src="/background/sniperbg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                    <p className="text-white text-xl">SNIPER</p>
+                  </div>
+                </Link>
               </div>
 
               <div className="relative">
-                <img src="/background/m4a1bg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
-                  <p className="text-white text-xl">ASSAULT RIFFLE</p>
-                </div>
+                <Link href="../gun" >
+                  <img src="/background/m4a1bg.jpeg" alt="Smith & Wesson" className="transition duration-300 ease-in-out w-full h-full blur-none hover:blur-sm" />
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-0 hover:opacity-100">
+                    <p className="text-white text-xl">ASSAULT RIFFLE</p>
+                  </div>
+                </Link>
+
               </div>
             </div>
           </div>
+        </motion.div>
+        <motion.div
+          variants={fadeInClient}
+          initial="hidden"
+          animate={control}
+          className='container mx-auto mt-10 bg-black'>
+          <CounterExp />
         </motion.div>
         <Footer />
       </div>
 
     </div>
+    </AnimatePresence >
   );
 }

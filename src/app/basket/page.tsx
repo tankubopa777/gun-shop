@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
@@ -11,15 +11,38 @@ type BasketItem = {
     name: string;
     detail: string;
     price: number;
+    quantity: number;
 };
 
-const basketItems: BasketItem[] = [
-    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 },
-    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 },
-    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999 }
+const initialBasketItems: BasketItem[] = [
+    { id: '1', name: 'Gun name', detail: 'Gun detail', price: 9999, quantity: 1 },
+    { id: '2', name: 'Gun name', detail: 'Gun detail', price: 9999, quantity: 1 },
+    { id: '3', name: 'Gun name', detail: 'Gun detail', price: 9999, quantity: 1 },
+    // Add more items here with unique ids
 ];
 
 export default function Basket() {
+    const [basketItems, setBasketItems] = useState<BasketItem[]>(initialBasketItems);
+
+    const handleIncrement = (id: string) => {
+        const newItems = basketItems.map(item => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+        });
+        setBasketItems(newItems);
+    };
+
+    const handleDecrement = (id: string) => {
+        const newItems = basketItems.map(item => {
+            if (item.id === id && item.quantity > 0) {
+                return { ...item, quantity: item.quantity - 1 };
+            }
+            return item;
+        });
+        setBasketItems(newItems);
+    };
 
     return (
         <div className="w-full min-h-screen bg-black text-white ">
@@ -39,16 +62,15 @@ export default function Basket() {
                                     key={item.id}
                                     className="flex items-center justify-between mb-4 p-4 bg-gray-700"
                                 >
-                                    {/* Image placeholder for the gun */}
                                     <Image src="/background/smgbg.jpeg" alt="Gun" width={100} height={100} />
                                     <div className="flex-1 mx-4">
                                         <p className="font-bold">{item.name}</p>
                                         <p>{item.detail}</p>
                                     </div>
                                     <div className="flex items-center">
-                                        <button className="mx-2">-</button>
-                                        <span>1</span>
-                                        <button className="mx-2">+</button>
+                                        <button className="mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleDecrement(item.id)}>-</button>
+                                        <span>{item.quantity}</span>
+                                        <button className="mx-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleIncrement(item.id)}>+</button>
                                     </div>
                                     <div>
                                         <p>{item.price} Baht</p>
@@ -71,4 +93,5 @@ export default function Basket() {
         </div>
     );
 }
+
 
