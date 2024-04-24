@@ -4,23 +4,13 @@ import { AiOutlineClose, AiOutlineMenu, AiOutlineShoppingCart } from 'react-icon
 import Link from 'next/link';
 
 const Navbar = () => {
-    // State to manage the navbar's visibility and basket items
     const [nav, setNav] = useState(false);
     const [basketItems, setBasketItems] = useState([]);
 
-    // Toggle function to handle the navbar's display
     const handleNav = () => {
         setNav(!nav);
     };
 
-    // Function to handle adding items to the basket
-    // const addToBasket = () => {
-    //     // Example function to add an item
-    //     const newItem = { id: basketItems.length + 1, name: "New Item" };
-    //     setBasketItems([...basketItems, newItem]);
-    // };
-
-    // Array containing navigation items
     const navItems = [
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
@@ -30,10 +20,9 @@ const Navbar = () => {
 
     return (
         <div className='bg-black flex justify-between items-center h-24 w-full mx-auto px-4 text-white'>
-            {/* Logo */}
+
             <h1 className='w-full text-3xl font-thin text-white '>GUN SHOP</h1>
 
-            {/* Desktop Navigation */}
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
                     <Link key={item.id} href={`/${item.url.toLowerCase()}`}>
@@ -45,10 +34,9 @@ const Navbar = () => {
                         </div>
                     </Link>
                 ))}
-                {/* Basket Icon */}
+
                 <div className="cursor-pointer p-4"  >
                     <AiOutlineShoppingCart size={20} />
-                    {/* <span>{basketItems.length}</span>  */}
                 </div>
             </ul>
 

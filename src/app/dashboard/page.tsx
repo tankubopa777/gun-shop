@@ -77,7 +77,7 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full h-screen bg-black">
+        <div className="w-full h-screen bg-black flex flex-row">
             <SideBar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
