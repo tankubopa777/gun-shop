@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 
 import Footer from '../components/Footer';
 import { SideBar } from '../components/SideBar';
+import DashboardTable from '../components/DashboardTable';
 
 export default function Home() {
     const control = useAnimation();
@@ -85,24 +86,7 @@ export default function Home() {
                 exit={{ opacity: 0 }}
                 className="container mx-auto my-8 p-4 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50"
             >
-                <div className="grid md:grid-cols-2 gap-8 items-center ">
-                    <Image
-                        src={"/background/gun-logo.png"}
-                        alt="Home"
-                        width={500}
-                        height={500}
-                    />
-                    <motion.div
-                        ref={ref}
-                        initial="hidden"
-                        animate={control}
-                        variants={fadeInClient}
-                        className="flex flex-col justify-center "
-                    >
-                        <h1 className="text-4xl font-bold text-white">Home</h1>
-                        <p className="text-gray-300">Welcome to the gun store.</p>
-                    </motion.div>
-                </div>
+                <DashboardTable />
             </motion.div>
         </div>
     );

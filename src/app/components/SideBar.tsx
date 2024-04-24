@@ -16,41 +16,22 @@ export function SideBar() {
             <div className=" space-y-3">
                 {/* Home */}
                 <Link href="../dashboard">
-                    <div className="text-gray-100 bg-black rounded-full h-12">
-                        <div className=" mr-2">
-                            <h1 className=""> Home </h1>
-                        </div>
+                    <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
+                        <h1 className="items-center place-self-center h-12 flex justify-center"> Dashboard </h1>
                     </div>
                 </Link>
-                {/* Profile Setting */}
-                <Link href="../dashboard/profileSetting">
-                    <div className="text-gray-100 bg-black rounded-full h-12">
-                        <div className=" mr-2">
-                            <h1 className=""> Home </h1>
-                        </div>
+                {/* Profile */}
+                <Link href="../dashboard">
+                    <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
+                        <h1 className="items-center place-self-center h-12 flex justify-center"> Profile </h1>
                     </div>
                 </Link>
 
-                {/* Pateint History */}
-                <Link href="../dashboard/historyDashboard">
-                    <div className="text-gray-100 bg-black rounded-full h-12">
-                        <div className=" mr-2">
-                            <h1 className=""> Home </h1>
-                        </div>
+                <Link href="../login">
+                    <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
+                        <h1 className="items-center place-self-center h-12 flex justify-center"> Logout </h1>
                     </div>
                 </Link>
-
-                <button onClick={() => setOpenLogout(true)}>
-                    <div className="text-gray-100 bg-black rounded-full">
-                        <div className=" mr-2">
-                            <div className="h-5 w-5" />
-                        </div>
-                        Log Out
-                    </div>
-                </button>
-
-
-
             </div>
         </div>
     );

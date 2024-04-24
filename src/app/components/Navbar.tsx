@@ -15,7 +15,7 @@ const Navbar = () => {
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
         { id: 3, text: 'About', url: '../about' },
-        { id: 4, text: 'Contact', url: '/contact' },
+        { id: 4, text: 'Contact', url: '../about' },
     ];
 
     return (
