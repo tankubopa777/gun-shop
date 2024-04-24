@@ -6,6 +6,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 import Footer from '../components/Footer';
+import { SideBar } from '../components/SideBar';
 
 export default function Home() {
     const control = useAnimation();
@@ -77,7 +78,7 @@ export default function Home() {
 
     return (
         <div className="w-full h-screen bg-black">
-            <Navbar />
+            <SideBar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
@@ -103,7 +104,6 @@ export default function Home() {
                     </motion.div>
                 </div>
             </motion.div>
-            <Footer />
         </div>
     );
 }
