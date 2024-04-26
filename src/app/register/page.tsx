@@ -4,6 +4,8 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Transition from '../components/Transition';
 import RegisterComponent from '../components/RegisterComponent';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function Login() {
     const control = useAnimation();
@@ -42,14 +44,16 @@ export default function Login() {
     return (
         <div className="w-full h-screen bg-black">
             <Transition />
+            <Navbar />
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
                 exit={{ opacity: 0 }}
-                className="container mx-auto my-8 p-4 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50"
+                className="items-center h-full w-full"
             >
                 <RegisterComponent />
             </motion.div>
+            <Footer />
         </div>
     );
 }

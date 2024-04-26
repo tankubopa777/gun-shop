@@ -82,7 +82,6 @@ const AboutPage = () => {
                 className="container mx-auto px-4 pt-16 mb-24 ">
                 <h1 className="text-4xl font-bold text-center mb-12">About Us</h1>
                 <div className="flex flex-wrap justify-center gap-8">
-                    {/* Creator 1 */}
                     <CreatorCard
                         name="Warunporn Intarachana"
                         role="Frontend Developer"
@@ -91,7 +90,6 @@ const AboutPage = () => {
                         githubUrl="https://github.com/tankubopa777"
                         linkedinUrl="https://www.linkedin.com/in/warunporn-intarachana-9b7253181/"
                     />
-                    {/* Creator 2 */}
                     <CreatorCard
                         name="Viphava Khlaisuwan"
                         role="Backend Developer"

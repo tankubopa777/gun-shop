@@ -108,6 +108,10 @@ export default function Home() {
           </p>
         </div>
       </motion.div>
+      <div
+        className='container mx-auto mt-10 bg-black'>
+        <CounterExp />
+      </div>
 
       {/* ours cilent */}
       <div ref={ref} className='w-full bg-black'>
@@ -194,13 +198,7 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
-        <motion.div
-          variants={fadeInClient}
-          initial="hidden"
-          animate={control}
-          className='container mx-auto mt-10 bg-black'>
-          <CounterExp />
-        </motion.div>
+
         <Footer />
       </div>
 
