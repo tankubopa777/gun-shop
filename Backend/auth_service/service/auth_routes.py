@@ -6,7 +6,7 @@ from auth_utils import (
     send_activation_email,
     decode_activation_token,
     create_access_token,
-    verify_password
+    verify_password,
 )
 from database import get_database_connection
 import uuid
@@ -88,6 +88,7 @@ async def admin_register(form_data: OAuth2PasswordRequestForm = Depends()):
             detail="Database connection failed",
         )
 
+
 @router.get("/activate/{token}")
 async def activate_account(token: str, request: Request):
     try:
@@ -117,6 +118,7 @@ async def activate_account(token: str, request: Request):
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+
 @router.post("/login/")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     username = form_data.username
@@ -130,16 +132,24 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
             )
         cursor = connection.cursor()
         try:
-            cursor.execute(
-                "SELECT * FROM authen.users WHERE email = %s", (username, )
-            )
+            cursor.execute("SELECT * FROM db.users WHERE email = %s", (username,))
             myresult = cursor.fetchall()
             myresult = myresult[0]
-            
-            data = {'id': myresult[0], 'email': myresult[1], 'password': myresult[2], 'is_admin': myresult[3], 'is_active': myresult[4]}
-    
-            if verify_password(password, data["password"]) and data['is_active'] == 1:
-                access_token = create_access_token({'sub': data["email"]}, timedelta(minutes= ACCESS_TOKEN_EXPIRE_MINUTES))
+
+            data = {
+                "id": myresult[0],
+                "email": myresult[1],
+                "password": myresult[2],
+                "is_admin": myresult[3],
+                "is_active": myresult[4],
+            }
+            print(verify_password(password, data["password"]))
+
+            if verify_password(password, data["password"]) and (data["is_active"] == 1):
+                access_token = create_access_token(
+                    {"sub": data["email"]},
+                    timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
+                )
                 return {
                     "id": myresult[0],
                     "email": myresult[1],
@@ -147,8 +157,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
                     "is_admin": data["is_admin"],
                 }
             else:
-                return {'detail': 'Username or password is not correct.'}
-                
+                return {"detail": "Username or password is not correct."}
+
         finally:
             cursor.close()
             connection.close()
