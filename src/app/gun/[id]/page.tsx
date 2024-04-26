@@ -12,73 +12,33 @@ import Transition from '@/app/components/Transition';
 import UserReviews from '@/app/components/UserReviews';
 
 const fetchGunDetails = async (id: string) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                id: id,
-                name: "M82A1",
-                description: "The M82A1 is a recoil-operated, semi-automatic anti-materiel rifle developed by the American Barrett Firearms Manufacturing company. It is used by many units and armies around the world. Despite its designation as an anti-materiel rifle, it is used by some armed forces as an anti-personnel system.",
-                imageUrl: "/background/gun_image.jpg",
-            });
-        }, 500);
+    const response = await fetch(`http://localhost:8001/product/getproductsByID/${id}?type=${id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
     });
+    if (!response.ok) {
+        throw new Error('Failed to fetch gun details');
+    }
+    const data = await response.json();
+    return data.Product;
 };
 
 export default function GunDetail() {
-    const [gunDetails, setGunDetails] = useState<any>(null);
+    const [gunDetails, setGunDetails] = useState(null);
     const params = useParams();
     const id = params.id ? params.id.toString() : '';
-    const reviews = [
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/tanprofile.jpeg',
-        },
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/ohmprofile.png',
-        },
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/tanprofile.jpeg',
-        },
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/ohmprofile.png',
-        },
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/tanprofile.jpeg',
-        },
-        {
-            username: 'tan',
-            date: '2023-04-17',
-            reviewPoints: 5,
-            reviewText: 'Best gun shop, good take care.',
-            userImageUrl: '/profile/ohmprofile.png',
-        },
-    ];
-
 
     useEffect(() => {
         if (id) {
-            fetchGunDetails(id).then(details => {
-                setGunDetails(details);
-            });
+            fetchGunDetails(id)
+                .then(details => {
+                    setGunDetails(details);
+                })
+                .catch(error => {
+                    console.error('Error fetching gun details:', error);
+                });
         }
     }, [id]);
 
@@ -99,17 +59,17 @@ export default function GunDetail() {
             >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <Image
-                        src={"/background/sniper_rifle.jpg"}
-                        alt={gunDetails.name}
+                        src={gunDetails.product_image || "/background/sniper_rifle.jpg"}
+                        alt={gunDetails.product_name}
                         width={500}
                         height={500}
                         className="rounded-md"
                     />
                     <div>
-                        <h1 className="text-2xl font-bold text-white">{gunDetails.name}</h1>
-                        <p className="text-lg text-white mt-2">{gunDetails.description}</p>
+                        <h1 className="text-2xl font-bold text-white">{gunDetails.product_name}</h1>
+                        <p className="text-lg text-white mt-2">{gunDetails.product_description}</p>
                         <div className="flex items-center mt-4">
-                            <div className="text-xl font-semibold text-white">${gunDetails.price}</div>
+                            <div className="text-xl font-semibold text-white">${gunDetails.product_price}</div>
                             {/* Placeholder for the rating component */}
                             <div className="ml-4">
                                 <span className="text-yellow-500">★ ★ ★ ★ ★</span>
@@ -122,16 +82,13 @@ export default function GunDetail() {
                             {/* Icons for safe checkout can be added here */}
                         </div>
                     </div>
-
                 </div>
                 <div className="mt-8">
                     <h2 className="text-2xl text-white">USER REVIEW</h2>
                 </div>
                 <div>
                     <div className="space-y-4 grid grid-cols-3">
-                        {reviews.map((review, index) => (
-                            <UserReviews key={index} {...review} />
-                        ))}
+                        {/* Placeholder for user reviews */}
                     </div>
                 </div>
                 <div className='w-full'>

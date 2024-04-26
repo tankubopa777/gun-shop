@@ -33,6 +33,7 @@ export default function RegisterComponent() {
             .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(details[key])}`)
             .join('&');
 
+        console.log(formBody);
         try {
             const response = await fetch('http://127.0.0.1:8000/auth/register/', {
                 method: 'POST',

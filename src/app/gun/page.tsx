@@ -1,20 +1,44 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from "next/image";
-import Link from "next/link";
-
 import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import Cursor from '../components/Cursor';
 import Transition from '../components/Transition';
 
-
 export default function Gun() {
     const control = useAnimation();
     const ref = useRef(null);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8001/product/allProduct', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data && Array.isArray(data.Products)) {
+                    const formattedData = data.Products.map(product => ({
+                        id: product.id,
+                        name: product.product_name,
+                        description: product.product_description,
+                        priceRange: `$${product.product_price}`,
+                        image: product.product_image || '/background/sniper_rifle.jpg', // Default image if none
+                        rating: product.reviews ? product.reviews.average : 4 // Default rating if no reviews
+                    }));
+                    setProducts(formattedData);
+                } else {
+                    console.error('Expected an array of products under "Products" key, but received:', data);
+                }
+            })
+            .catch(error => console.error('Error loading products:', error));
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -40,80 +64,10 @@ export default function Gun() {
         };
     }, [control]);
 
-
     const fadeInClient = {
         hidden: { opacity: 0, y: 50 },
         show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
     };
-
-    // Product data could be fetched from an API or defined as a constant
-    const products = [
-        {
-            id: 'p320-nitron-compact',
-            name: 'P320 9MM NITRON COMPACT',
-            description: 'A compact 9MM pistol known for its versatility and reliability.',
-            priceRange: '$450.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 4
-        },
-        {
-            id: 'm60-machine-gun',
-            name: 'M60 MACHINE GUN',
-            description: 'A legendary machine gun with reliable performance in automatic firing.',
-            priceRange: '$1,299.00 - $1,399.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 5
-        },
-        {
-            id: 'ammo-xpert22x',
-            name: 'AMMO XPERT22X',
-            description: 'High-quality 22 caliber cartridges designed for precision.',
-            priceRange: '$15.00 - $23.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 4
-        },
-        {
-            id: 'bulletproof-vest',
-            name: 'BULLETPROOF VEST',
-            description: 'Advanced body armor offering superior protection.',
-            priceRange: '$220.00 - $230.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 5
-        },
-        {
-            id: 'luger-pistol-sp5k-pdw',
-            name: 'LUGER PISTOL SP5K PDW',
-            description: 'A compact and versatile PDW pistol for personal defense.',
-            priceRange: '$729.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 4.5
-        },
-        {
-            id: 'round-semi-automatic-rifle',
-            name: 'ROUND SEMI AUTOMATIC RIFLE',
-            description: 'A semi-automatic rifle with exceptional round accuracy.',
-            priceRange: '$1,799.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 4.5
-        },
-        {
-            id: 'p320-semi-automatic-pistol',
-            name: 'P320 SEMI-AUTOMATIC PISTOL',
-            description: 'A semi-automatic pistol with a modular design for custom configurations.',
-            priceRange: '$845.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 5
-        },
-        {
-            id: 'ar15-rifle-buttstock',
-            name: 'AR15 RIFLE BUTTSTOCK',
-            description: 'Durable and adjustable buttstock for AR15 rifles.',
-            priceRange: '$99.00',
-            image: '/background/sniper_rifle.jpg',
-            rating: 4.5
-        }
-    ];
-
 
     return (
         <div className='bg-black'>
@@ -125,7 +79,6 @@ export default function Gun() {
                 animate="show"
                 exit="hidden"
                 className="relative flex flex-col items-center justify-center h-screen">
-                {/* Replace with your actual hero image path */}
                 <Image
                     src="/background/gun_weapon.jpg"
                     alt="Gun Shop"
@@ -143,7 +96,6 @@ export default function Gun() {
                 </div>
             </motion.div>
 
-            {/* Product Grid */}
             <div ref={ref} className='container mx-auto mt-10 p-4'>
                 <motion.div
                     variants={fadeInClient}
@@ -159,3 +111,4 @@ export default function Gun() {
         </div>
     );
 }
+
