@@ -1,7 +1,15 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from database import get_database_connection
+from fastapi.security import OAuth2PasswordBearer
+from product_utils import decode_access_token
+from models import User, TokenData, Reviews
+from jose import JWTError
+from typing import Annotated
+from authen import JWTBearer
 
 router = APIRouter()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 
 
 @router.get("/allProduct")
@@ -76,5 +84,96 @@ def getproductsByType(type: str):
         finally:
             cursor.close()
             connection.close()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@router.get("/getproductsByID/{id}")
+def getproductsByID(type: str):
+    try:
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+        cursor = connection.cursor()
+        try:
+            cursor.execute("SELECT * FROM db.products WHERE id = %s", (int(type),))
+            myresult = cursor.fetchall()
+            if myresult:
+                item = myresult[0]
+                data = {
+                        "id": item[0],
+                        "product_name": item[1],
+                        "product_type": item[2],
+                        "product_description": item[3],
+                        "product_image": item[4],
+                        "product_price": item[5],
+                        "product_quantity": item[6],
+                        "reviews": item[7],
+                    }
+    
+                return {"Product": data}
+            else:
+                return {"Product": None}
+
+        finally:
+            cursor.close()
+            connection.close()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = decode_access_token(token)
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    
+    return token_data
+
+
+async def get_current_active_user(
+    current_user: Annotated[User, Depends(get_current_user)],
+):
+    if current_user.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
+
+@router.post("/reviews", dependencies=[Depends(JWTBearer())], tags=["posts"])
+async def read_users_me(data: Reviews):
+    try:
+
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+
+        cursor = connection.cursor()
+        try:
+            query = 'UPDATE products SET reviews = JSON_SET(COALESCE(reviews, JSON_OBJECT("comments", JSON_ARRAY())), "$.comments", JSON_ARRAY_APPEND(COALESCE(JSON_EXTRACT(reviews, "$.comments"), JSON_ARRAY()), "$", JSON_OBJECT("username", %s, "comment", %s))) WHERE id = %s;'
+
+            cursor.execute(query, (data.username, data.comment, data.product_id))
+            
+            connection.commit()
+        finally:
+            cursor.close()
+            connection.close()
+
+        return data
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid activation token")
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")

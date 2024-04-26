@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
+from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from auth_utils import (
     get_password_hash,
@@ -23,7 +24,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 @router.post("/register/")
-async def register(form_data: OAuth2PasswordRequestForm = Depends()):
+async def register(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     id = uuid.uuid4().hex
     username = form_data.username
     password = str(get_password_hash(form_data.password))
@@ -53,7 +54,7 @@ async def register(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @router.post("/admin_register/")
-async def admin_register(form_data: OAuth2PasswordRequestForm = Depends()):
+async def admin_register(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     if not form_data.username.endswith("@dome.tu.ac.th"):
         return {
             "status": "error",
@@ -120,7 +121,7 @@ async def activate_account(token: str, request: Request):
 
 
 @router.post("/login/")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     username = form_data.username
     password = form_data.password
     try:
