@@ -12,6 +12,17 @@ services:
     ports:
       - '8000:8000'
 
+  product:
+    build: ./product_service/service/
+    depends_on:
+      - mysql
+    working_dir: /usr/app/src
+      
+    volumes:
+      - ./product_service/service:/usr/app/src
+    ports:
+      - '8001:8000'
+
   mysql:
     build: ./database/
     restart: always
