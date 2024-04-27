@@ -5,6 +5,7 @@ from config import (
     SECRET_KEY_ACCESS,
     ALGORITHM,
 )
+import requests
 
 
 def verify_password(plain_password, hashed_password):
@@ -50,3 +51,21 @@ def decode_access_token(token):
         raise ValueError("Invalid token format")
     except Exception:
         raise ValueError("Invalid token")
+    
+def sentiment(text):
+    url = "https://api.aiforthai.in.th/ssense"
+    data = {"text": text}
+    headers = {"Apikey": "iSQjiwWVg1qbg6TaqTAihilkL1trntuL"}
+    response = requests.post(url, data=data, headers=headers)
+    response = response.json()['sentiment']
+
+    pos = 0
+    neg = 0
+    if response['polarity-pos']:
+        pos = 1
+    if response['polarity-neg']:
+        neg = 1
+    response_data = {'positive': pos, 'negative': neg}
+
+    return response_data
+

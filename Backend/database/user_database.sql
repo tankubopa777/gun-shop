@@ -7,6 +7,10 @@ CREATE TABLE users (
     is_admin BOOLEAN DEFAULT FALSE,
     is_active BOOLEAN DEFAULT FALSE
 );
+INSERT INTO users (id, email, passwd, is_admin, is_active) 
+VALUES 
+    ('root', 'admin@test.com', '$2b$12$p2E5Z2i2YkkXl0QjEeoO4Ot5O6Eq0yze7UPXjvs6k9b6MCdVC0QaO', 1, 1);
+
 
 CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -14,9 +18,13 @@ CREATE TABLE products (
     product_type VARCHAR(255),
     product_description VARCHAR(255),
     product_image VARCHAR(255),
-    product_price FLOAT,
-    product_quantity INT,
-    reviews JSON
+    product_price FLOAT DEFAULT 0,
+    product_quantity INT DEFAULT 0,
+    reviews JSON,
+    saled INT DEFAULT 0,
+    reviews_quantity INT DEFAULT 0,
+    positive INT DEFAULT 0,
+    negative INT DEFAULT 0
 );
 
 INSERT INTO products (product_name, product_type, product_description, product_price, product_quantity)
