@@ -29,7 +29,8 @@ const Navbar = () => {
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
         { id: 3, text: 'About', url: '../about' },
-        { id: 4, text: 'Dashboard', url: '../dashboard' },
+        { id: 4, text: 'Basket', url: '../basket' },
+        { id: 5, text: 'Dashboard', url: '../dashboard' },
     ];
 
     return (

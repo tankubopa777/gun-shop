@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -10,6 +10,7 @@ import Transition from '@/app/components/Transition';
 import UserReviews from '@/app/components/UserReviews';
 import RelatedProducts from '@/app/components/RelateProduct';
 import Link from 'next/link';
+import { to } from '../../../../.next/static/chunks/main-app';
 
 const fetchGunDetails = async (id: any) => {
     const response = await fetch(`http://localhost:8001/product/getproductsByID/${id}?type=${id}`, {
@@ -25,11 +26,42 @@ const fetchGunDetails = async (id: any) => {
     return data.Product;
 };
 
+
 export default function GunDetail() {
     const [gunDetails, setGunDetails] = useState(null);
     const params = useParams();
     const id = params.id ? params.id.toString() : '';
     const [comment, setComment] = useState('');
+
+    const handleAddToBasket = async () => {
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        if (!token) {
+            alert('You must be logged in to add items to the basket.');
+            return;
+        }
+
+        const response = await fetch('http://localhost:8002/order/addBasket', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                product_id: id,
+                order_quantity: 1
+            })
+        });
+
+        if (!response.ok) {
+            const message = await response.text();
+            alert('Failed to add to basket: ' + message);
+            return;
+        }
+
+        alert('Added to basket successfully!');
+    };
+
 
     useEffect(() => {
         if (id) {
@@ -47,7 +79,6 @@ export default function GunDetail() {
         return <div>Loading...</div>;
     }
 
-    // Safely parse reviews and provide a default empty array if null
     const token = localStorage.getItem('token')
 
     let reviews = [];
@@ -65,11 +96,11 @@ export default function GunDetail() {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 product_id: gunDetails.id,
-                username: 'yoyo', 
+                username: 'yoyo',
                 comment: comment
             })
         });
@@ -112,11 +143,13 @@ export default function GunDetail() {
                                 <span className="text-yellow-500">★ ★ ★ ★ ★</span>
                             </div>
                         </div>
-                        <Link href={`/payment`}>
-                            <button className="bg-orange-500 hover:bg-orange-600 text-white font-thin py-2 px-4 rounded mt-8 transition-colors duration-200">
-                                Buy Now
-                            </button>
-                        </Link>
+                        {/* <Link href={`/payment`}> */}
+                        <button
+                            className="bg-orange-500 hover:bg-orange-600 text-white font-thin py-2 px-4 rounded mt-8 transition-colors duration-200"
+                            onClick={handleAddToBasket}>
+                            Add to Basket
+                        </button>
+                        {/* </Link> */}
                         <div className="flex items-center mt-4">
                             {/* Icons for safe checkout can be added here */}
                         </div>
