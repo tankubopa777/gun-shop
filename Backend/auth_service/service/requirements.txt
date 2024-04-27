@@ -10,3 +10,4 @@ uuid
 mysql-connector-python
 bcrypt
 python-multipart
+requests
