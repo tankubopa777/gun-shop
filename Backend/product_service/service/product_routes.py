@@ -193,3 +193,79 @@ async def read_users_me(data: Reviews):
         raise HTTPException(status_code=400, detail="Invalid activation token")
     except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/getFiveMostSaled/")
+def getFiveMostSaled():
+    try:
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+        cursor = connection.cursor()
+        try:
+            cursor.execute(
+                "SELECT id, product_name, product_type, saled FROM db.products WHERE saled > 0 ORDER BY saled DESC LIMIT 5"
+            )
+
+            myresult = cursor.fetchall()
+            if myresult:
+                allData = []
+                for item in myresult:
+                    data = {
+                        "id": item[0],
+                        "product_name": item[1],
+                        "product_type": item[2],
+                        "saled": item[3],
+                    }
+                    allData.append(data)
+                return {"Products": allData}
+            else:
+                return {"Products": None}
+
+        finally:
+            cursor.close()
+            connection.close()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/getFiveMostReviews/")
+def getFiveMostReviews():
+    try:
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+        cursor = connection.cursor()
+        try:
+            cursor.execute(
+                "SELECT id, product_name, product_type, reviews_quantity, positive, negative FROM db.products WHERE reviews_quantity > 0 ORDER BY reviews_quantity DESC LIMIT 5"
+            )
+
+            myresult = cursor.fetchall()
+            if myresult:
+                allData = []
+                for item in myresult:
+                    data = {
+                        "id": item[0],
+                        "product_name": item[1],
+                        "product_type": item[2],
+                        "reviews_quantity": item[3],
+                        "positive(%)": ((item[4] / (item[4] + item[5])) * 100),
+                        "negative(%)": ((item[5] / (item[4] + item[5])) * 100),
+                    }
+                    allData.append(data)
+                return {"Products": allData}
+            else:
+                return {"Products": None}
+
+        finally:
+            cursor.close()
+            connection.close()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
