@@ -23,6 +23,18 @@ services:
     ports:
       - '8001:8000'
 
+  order:
+    build: ./order_service/service/
+    depends_on:
+      - mysql
+      - product
+    working_dir: /usr/app/src
+      
+    volumes:
+      - ./order_service/service/:/usr/app/src
+    ports:
+      - '8002:8000'
+
   mysql:
     build: ./database/
     restart: always
