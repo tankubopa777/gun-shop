@@ -6,7 +6,6 @@ services:
     depends_on:
       - mysql
     working_dir: /usr/app/src
-      
     volumes:
       - ./auth_service/service:/usr/app/src
     ports:
@@ -17,7 +16,6 @@ services:
     depends_on:
       - mysql
     working_dir: /usr/app/src
-      
     volumes:
       - ./product_service/service:/usr/app/src
     ports:
@@ -29,7 +27,6 @@ services:
       - mysql
       - product
     working_dir: /usr/app/src
-      
     volumes:
       - ./order_service/service/:/usr/app/src
     ports:
@@ -45,3 +42,14 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - '9000:3306'
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: user
+      PMA_PASSWORD: password
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
