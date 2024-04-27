@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, {useState} from 'react';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,8 +13,44 @@ import Footer from '../components/Footer';
 
 
 export default function Payment() {
+    const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
     const control = useAnimation();
     const ref = useRef(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const fetchBasket = async () => {
+            try {
+                const response = await fetch('http://localhost:8002/order/getBasketByToken', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch basket items');
+                }
+
+                const data = await response.json();
+                const items = data.Products.map(product => ({
+                    id: String(product.product_id),
+                    cart_id : String(product.id),
+                    name: product.product_name,
+                    detail: '',
+                    price: product.product_price,
+                    quantity: product.order_quantity
+                }));
+
+                setBasketItems(items);
+            } catch (error) {
+                console.error('Error fetching basket items:', error);
+            }
+        };
+
+        fetchBasket();
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -60,7 +96,7 @@ export default function Payment() {
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <AddressForm />
-                    <PaymentSummary />
+                    <PaymentSummary basketItems={basketItems} />
                 </div>
             </motion.div>
             <Footer />
