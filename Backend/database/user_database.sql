@@ -50,6 +50,31 @@ CREATE TABLE basket (
     username VARCHAR(255)
 );
 
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_product_id
+FOREIGN KEY (product_id)
+REFERENCES products(id)
+ON DELETE CASCADE;
+
+ALTER TABLE basket
+ADD CONSTRAINT fk_basket_product_id
+FOREIGN KEY (product_id)
+REFERENCES products(id)
+ON DELETE CASCADE;
+
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_username
+FOREIGN KEY (username)
+REFERENCES users(email)
+ON DELETE CASCADE;
+
+ALTER TABLE basket
+ADD CONSTRAINT fk_basket_username
+FOREIGN KEY (username)
+REFERENCES users(email)
+ON DELETE CASCADE;
+
+
 INSERT INTO products (product_name, product_type, product_description, product_price, product_quantity)
 VALUES
   ('Vanguard Viper XR Tactical Rifle', 'Tactical Rifle', 'Engineered for ultimate precision, this tactical rifle features a 20-inch stainless steel barrel, fully adjustable stock, and modular accessory rail system. Ideal for serious shooters in competitive or tactical scenarios.', 1200, 10),
