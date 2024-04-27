@@ -22,6 +22,7 @@ CREATE TABLE products (
     product_quantity INT DEFAULT 0,
     reviews JSON,
     saled INT DEFAULT 0,
+    reviews_quantity INT DEFAULT 0,
     positive INT DEFAULT 0,
     negative INT DEFAULT 0
 );

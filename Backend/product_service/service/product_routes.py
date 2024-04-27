@@ -75,8 +75,9 @@ def getproductsByType(type: str):
                         "product_quantity": item[6],
                         "reviews": item[7],
                         "saled": item[8],
-                        "positive": item[9],
-                        "negative": item[10],
+                        "reviews_quantity": item[9],
+                        "positive": item[10],
+                        "negative": item[11],
                     }
                     allData.append(data)
                 return {"Products": allData}
@@ -115,8 +116,9 @@ def getproductsByID(type: str):
                     "product_quantity": item[6],
                     "reviews": item[7],
                     "saled": item[8],
-                    "positive": item[9],
-                    "negative": item[10],
+                    "reviews_quantity": item[9],
+                    "positive": item[10],
+                    "negative": item[11],
                 }
 
                 return {"Product": data}
@@ -173,7 +175,7 @@ async def read_users_me(data: Reviews):
             sentiment_output = sentiment(data.comment)
 
             cursor.execute(
-                "UPDATE products SET positive = positive + %s, negative = negative + %s  WHERE id = %s",
+                "UPDATE products SET reviews_quantity = reviews_quantity + 1, positive = positive + %s, negative = negative + %s  WHERE id = %s",
                 (
                     sentiment_output["positive"],
                     sentiment_output["negative"],
