@@ -1,11 +1,25 @@
 "use client";
-import React, { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu, AiOutlineShoppingCart } from 'react-icons/ai';  // Import ShoppingCart icon
+import React, { useEffect, useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
     const [nav, setNav] = useState(false);
     const [basketItems, setBasketItems] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+        router.push('/');
+    };
 
     const handleNav = () => {
         setNav(!nav);
@@ -15,7 +29,7 @@ const Navbar = () => {
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
         { id: 3, text: 'About', url: '../about' },
-        { id: 4, text: 'Basket', url: '../basket' },
+        { id: 4, text: 'Dashboard', url: '../dashboard' },
     ];
 
     return (
@@ -35,15 +49,21 @@ const Navbar = () => {
                     </Link>
                 ))}
 
-                <div className="cursor-pointer p-4"  >
-                    <AiOutlineShoppingCart size={20} />
-                </div>
+                {isLoggedIn ? (
+                    <button onClick={handleLogout} className='p-4 hover:bg-[#ff4d4d] rounded-xl m-2 cursor-pointer duration-300 hover:text-white'>
+                        Logout
+                    </button>
+                ) : (
+                    <button onClick={() => router.push('/login')} className='p-4 hover:bg-[#ff4d4d] rounded-xl m-2 cursor-pointer duration-300 hover:text-white'>
+                        Login
+                    </button>
+                )}
             </ul>
 
             {/* Mobile Navigation Icon */}
-            {/* <div onClick={handleNav} className='block md:hidden'>
+            <div onClick={handleNav} className='block md:hidden'>
                 {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
-            </div> */}
+            </div>
 
             {/* Mobile Navigation Menu */}
             <ul
@@ -54,13 +74,14 @@ const Navbar = () => {
                 }
             >
                 {/* Mobile Logo */}
-                <h1 className='w-full text-3xl font-bold text-white m-4'>REACT.</h1>
+                <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>REACT.</h1>
+
 
                 {navItems.map(item => (
                     <Link key={item.id} href={`/${item.url.toLowerCase()}`}>
                         <div
                             key={item.id}
-                            className='p-4 border-b rounded-xl hover:bg-[#ff4d4d] duration-300 hover:text-black cursor-pointer border-gray-600'
+                            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
                         >
                             {item.text}
                         </div>

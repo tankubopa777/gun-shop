@@ -96,10 +96,9 @@ export default function Gun() {
                 </div>
             </motion.div>
 
-            <div ref={ref} className='container mx-auto mt-10 p-4'>
+            <div className='container mx-auto mt-10 p-4'>
                 <motion.div
                     variants={fadeInClient}
-                    initial="hidden"
                     animate={control}
                     className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 h-full'>
                     {products.map((product, index) => (

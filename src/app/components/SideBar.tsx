@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import router from 'next/router';
+import ProductCard from './ProductCard';
 
 export function SideBar() {
     const [openLogout, setOpenLogout] = React.useState(false);
@@ -13,15 +13,21 @@ export function SideBar() {
                     Dashboard
                 </div>
             </div>
+
             <div className=" space-y-3">
+                <Link href="../">
+                    <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
+                        <h1 className="items-center place-self-center h-12 flex justify-center"> Home </h1>
+                    </div>
+                </Link>
                 <Link href="../dashboard">
                     <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
                         <h1 className="items-center place-self-center h-12 flex justify-center"> Dashboard </h1>
                     </div>
                 </Link>
-                <Link href="../dashboard">
+                <Link href="../productDashboard">
                     <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
-                        <h1 className="items-center place-self-center h-12 flex justify-center"> Profile </h1>
+                        <h1 className="items-center place-self-center h-12 flex justify-center"> Product </h1>
                     </div>
                 </Link>
                 <Link href="../login">

@@ -4,12 +4,14 @@ import Image from "next/image";
 import { motion, useAnimation } from 'framer-motion';
 import Transition from '../components/Transition';
 import Navbar from '../components/Navbar';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const control = useAnimation();
     const ref = useRef(null);
+    const router = useRouter();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -52,7 +54,13 @@ export default function Login() {
             });
 
             const data = await response.json();
-            console.log(data);
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                router.push('../');
+                window.location.reload();
+            } else {
+                throw new Error(data.message || 'Failed to login');
+            }
         } catch (error) {
             console.error('Error during login:', error);
         }

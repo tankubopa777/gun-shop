@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const PaymentSummary: React.FC = () => {
     return (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h2 className="text-xl font-bold mb-4">Payment</h2>
             <div className="flex items-center justify-between mb-4">
                 {/* Replace the src with your actual image path */}

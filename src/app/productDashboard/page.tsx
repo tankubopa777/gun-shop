@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import ReactECharts from 'echarts-for-react';
 import { SideBar } from '../components/SideBar';
+import DashboardTable from '../components/DashboardTable';
 
-export default function Dashboard() {
+export default function ProductDashboard() {
     const control = useAnimation();
     const ref = useRef(null);
 
@@ -112,13 +113,7 @@ export default function Dashboard() {
                 exit={{ opacity: 0 }}
                 className="mx-auto  p-4 w-full h-full flex flex-col justify-center items-center bg-gray-900 bg-opacity-50"
             >
-                {/* <div className="w-full">
-                <ReactECharts option={lineChartOptions} style={{ height: 400, width: '100%' }} />
-                </div> */}
-                <div className="flex flex-row w-full">
-                    <ReactECharts option={barChartOptions} style={{ height: 400, width: '100%' }} />
-                    <ReactECharts option={pieChartOptions} style={{ height: 400, width: '100%' }} />
-                </div>
+                <DashboardTable />
             </motion.div>
         </div>
     );
