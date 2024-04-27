@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from product_routes import router as product_router
+from order_routes import router as order_router
 
 app = FastAPI()
 
@@ -21,4 +21,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(product_router, prefix="/product")
+app.include_router(order_router, prefix="/order")
