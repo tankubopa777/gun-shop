@@ -4,7 +4,6 @@ import Link from "next/link";
 import router from 'next/router';
 
 export function SideBar() {
-    // logout popup state
     const [openLogout, setOpenLogout] = React.useState(false);
 
     return (
@@ -15,19 +14,16 @@ export function SideBar() {
                 </div>
             </div>
             <div className=" space-y-3">
-                {/* Home */}
                 <Link href="../dashboard">
                     <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
                         <h1 className="items-center place-self-center h-12 flex justify-center"> Dashboard </h1>
                     </div>
                 </Link>
-                {/* Profile */}
                 <Link href="../dashboard">
                     <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
                         <h1 className="items-center place-self-center h-12 flex justify-center"> Profile </h1>
                     </div>
                 </Link>
-
                 <Link href="../login">
                     <div className="text-gray-100 bg-black rounded-full h-full mt-5 ">
                         <h1 className="items-center place-self-center h-12 flex justify-center"> Logout </h1>

@@ -15,7 +15,7 @@ const Navbar = () => {
         { id: 1, text: 'Home', url: '../' },
         { id: 2, text: 'Gun', url: '../gun' },
         { id: 3, text: 'About', url: '../about' },
-        { id: 4, text: 'Contact', url: '../about' },
+        { id: 4, text: 'Basket', url: '../basket' },
     ];
 
     return (
@@ -41,9 +41,9 @@ const Navbar = () => {
             </ul>
 
             {/* Mobile Navigation Icon */}
-            <div onClick={handleNav} className='block md:hidden'>
+            {/* <div onClick={handleNav} className='block md:hidden'>
                 {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
-            </div>
+            </div> */}
 
             {/* Mobile Navigation Menu */}
             <ul
@@ -54,14 +54,13 @@ const Navbar = () => {
                 }
             >
                 {/* Mobile Logo */}
-                <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>REACT.</h1>
+                <h1 className='w-full text-3xl font-bold text-white m-4'>REACT.</h1>
 
-                {/* Mobile Navigation Items */}
                 {navItems.map(item => (
                     <Link key={item.id} href={`/${item.url.toLowerCase()}`}>
                         <div
                             key={item.id}
-                            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+                            className='p-4 border-b rounded-xl hover:bg-[#ff4d4d] duration-300 hover:text-black cursor-pointer border-gray-600'
                         >
                             {item.text}
                         </div>
