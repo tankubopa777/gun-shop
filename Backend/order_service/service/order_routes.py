@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends, Header
 from database import get_database_connection
 from fastapi.security import OAuth2PasswordBearer
 from order_utils import decode_access_token
-from models import Order, User, TokenData
+from models import Order, User, TokenData, basket
 import requests
 
 from jose import JWTError
@@ -258,6 +258,137 @@ async def read_users_me(data: Order, Authorization: str = Header(None)):
             connection.close()
 
     return data
+
+
+@router.post("/addBasket", dependencies=[Depends(JWTBearer())], tags=["posts"])
+async def addbasket(data: basket, Authorization: str = Header(None)):
+    try:
+        token = Authorization.split()[1]
+        email = decode_access_token(token)
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+
+        # Using a context manager to handle the cursor's lifecycle
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT product_name, product_type, product_price, product_quantity, saled FROM db.products WHERE id = %s;",
+            (data.product_id,),
+        )
+
+        myresult = cursor.fetchall()
+        myresult = myresult[0]
+
+        if myresult[3] - data.order_quantity > 0:
+            cursor.execute(
+                "INSERT INTO basket (product_id, product_name, product_type, product_price, order_quantity, username) VALUES (%s, %s, %s, %s, %s, %s)",
+                (
+                    data.product_id,
+                    myresult[0],
+                    myresult[1],
+                    myresult[2],
+                    data.order_quantity,
+                    email,
+                ),
+            )
+
+            connection.commit()
+        else:
+            return {"detail": "Ran out of stock"}
+
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid activation token")
+    except requests.exceptions.ConnectionError:
+        raise HTTPException(status_code=503, detail="Product service is unavailable")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    finally:
+        if connection:
+            connection.close()
+
+    return data
+
+
+@router.get("/getBasketByToken", dependencies=[Depends(JWTBearer())], tags=["posts"])
+async def getBasketByToken(Authorization: str = Header(None)):
+    try:
+        token = Authorization.split()[1]
+        email = decode_access_token(token)
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+        cursor = connection.cursor()
+        try:
+            cursor.execute(
+                "SELECT * FROM db.basket WHERE username = %s",
+                (email,),
+            )
+            myresult = cursor.fetchall()
+            if myresult:
+                allData = []
+                for item in myresult:
+                    data = {
+                        "id": item[0],
+                        "product_id": item[1],
+                        "product_name": item[2],
+                        "product_price": item[4],
+                        "order_quantity": item[5],
+                        "username": item[6],
+                    }
+                    allData.append(data)
+                return {"Products": allData}
+            else:
+                return {"Products": None}
+
+        finally:
+            cursor.close()
+            connection.close()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/deleteBasket", dependencies=[Depends(JWTBearer())], tags=["posts"])
+async def deleteBasket(id: int):
+    try:
+
+        connection = get_database_connection()
+        if not connection:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Database connection failed",
+            )
+
+        # Using a context manager to handle the cursor's lifecycle
+        cursor = connection.cursor()
+    
+
+        
+        cursor.execute(
+                "DELETE FROM db.basket WHERE id = %s;",
+                (
+                    (id),
+                ),
+            )
+
+        connection.commit()
+
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid activation token")
+    except requests.exceptions.ConnectionError:
+        raise HTTPException(status_code=503, detail="Product service is unavailable")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    finally:
+        if connection:
+            connection.close()
+
+    return {'detail': 'Deleted'}
 
 
 # @router.get("/getFiveMostSaled/")

@@ -16,8 +16,6 @@ class Order(BaseModel):
     phone: str
     order_quantity: int
 
-    
-   
-
-
-   
+class basket(BaseModel):
+    product_id: int
+    order_quantity: int

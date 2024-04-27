@@ -40,6 +40,16 @@ CREATE TABLE orders (
     user_phone VARCHAR(255)
 );
 
+CREATE TABLE basket (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    product_name VARCHAR(255),
+    product_type VARCHAR(255),
+    product_price FLOAT DEFAULT 0,
+    order_quantity INT DEFAULT 0,
+    username VARCHAR(255)
+);
+
 INSERT INTO products (product_name, product_type, product_description, product_price, product_quantity)
 VALUES
   ('Vanguard Viper XR Tactical Rifle', 'Tactical Rifle', 'Engineered for ultimate precision, this tactical rifle features a 20-inch stainless steel barrel, fully adjustable stock, and modular accessory rail system. Ideal for serious shooters in competitive or tactical scenarios.', 1200, 10),
