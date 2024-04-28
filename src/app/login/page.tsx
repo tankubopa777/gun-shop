@@ -57,7 +57,7 @@ export default function Login() {
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 console.log('Login successful:', data);
-                router.push('../');
+                router.push('/');
                 window.location.reload();
             } else {
                 throw new Error(data.message || 'Failed to login');

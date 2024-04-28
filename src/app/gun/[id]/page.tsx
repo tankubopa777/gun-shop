@@ -32,6 +32,7 @@ export default function GunDetail() {
     const params = useParams();
     const id = params.id ? params.id.toString() : '';
     const [comment, setComment] = useState('');
+    const [userComment, setUserComment] = useState('');
 
     const handleAddToBasket = async () => {
         const token = localStorage.getItem('token'); // Retrieve the token from localStorage
@@ -100,7 +101,7 @@ export default function GunDetail() {
             },
             body: JSON.stringify({
                 product_id: gunDetails.id,
-                username: 'yoyo',
+                username: userComment,
                 comment: comment
             })
         });
@@ -135,13 +136,15 @@ export default function GunDetail() {
                         className="rounded-md"
                     />
                     <div>
-                        <h1 className="text-2xl font-bold text-white">{gunDetails.product_name}</h1>
-                        <p className="text-lg text-white mt-2">{gunDetails.product_description}</p>
-                        <div className="flex items-center mt-4">
-                            <div className="text-xl font-semibold text-white">${gunDetails.product_price}</div>
-                            <div className="ml-4">
+                        <h1 className="text-2xl font-thin text-white ">{gunDetails.product_name}</h1>
+                        <p className="text-lg text-white mt-2 font-thin">{gunDetails.product_description}</p>
+                        <div className="flex items-center mt-4 space-x-5">
+                            <div className="text-xl font-thin text-white">${gunDetails.product_price}</div>
+                            <div className="text-xl font-thin text-white">Amount {gunDetails.product_quantity}</div>
+                            <div className="text-xl font-thin text-white">Sale {gunDetails.saled}</div>
+                            {/* <div className="ml-4">
                                 <span className="text-yellow-500">★ ★ ★ ★ ★</span>
-                            </div>
+                            </div> */}
                         </div>
                         {/* <Link href={`/payment`}> */}
                         <button
@@ -156,7 +159,11 @@ export default function GunDetail() {
                     </div>
                 </div>
                 <div className="mt-8">
-                    <h2 className="text-2xl text-white">USER REVIEW</h2>
+                    <h2 className="text-2xl text-white font-thin">USER REVIEW  <span className="text-xl font-thin text-white">All Comment {gunDetails.reviews_quantity}</span></h2>
+                    <div className="flex flex-col">
+                    <div className="text-xl font-thin text-white">Positive Comment {gunDetails.positive}</div>
+                    <div className="text-xl font-thin text-white">Negative Comment {gunDetails.negative}</div>
+                    </div>
                 </div>
                 <div>
                     {reviews.length > 0 ? (
@@ -174,6 +181,15 @@ export default function GunDetail() {
                 {/* Reviews and other sections */}
                 <form onSubmit={handleSubmit}>
                     <h2 className="text-2xl text-black">Add Your Review</h2>
+                     {/* your name */}
+                    <input
+                        type="text"
+                        value={userComment}
+                        onChange={(e) => setUserComment(e.target.value)}
+                        className="w-full mt-2 p-2 text-white bg-gray-900 rounded-xl"
+                        placeholder="Your Name"
+                        required
+                    />
                     <textarea
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}

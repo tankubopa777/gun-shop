@@ -1,60 +1,83 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect} from 'react';
 
-export default function DashboardTable() {
+export default function DashboardTable({ orders }) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+
+    // Calculate the current items to display
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentOrders = orders.slice(indexOfFirstItem, indexOfLastItem);
+
+    useEffect(() => {
+        console.log("Current Page:", currentPage);
+        console.log("Displayed Orders:", currentOrders.length);
+    }, [currentPage, currentOrders]);  // Add dependencies here
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(orders.length / itemsPerPage)) {
+            setCurrentPage(prev => prev + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(prev => prev - 1);
+        }
+    };
+
     return (
-        <div className="bg-gray-900 rounded-lg shadow-sm w-full border-red-600 border">
-            <div className="px-6 py-4 flex items-center justify-between border-b  border-red-600">
+        <div className="bg-gray-900 rounded-lg shadow-sm w-full border-gray-800 border">
+            <div className="px-6 py-4 flex items-center justify-between border-b  border-gray-800">
                 <div className="flex items-center space-x-3">
                     <SearchIcon className="h-5 w-5 " />
                     <input className="border-none focus:ring-0 text-sm bg-gray-900" placeholder="Search orders..." type="text" />
                 </div>
             </div>
-            <div className="px-6 py-4 border-b border-red-600">
-                <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
+            <div className="px-6 py-4 border-b border-gray-800">
+                <h2 className="text-lg font-thin text-white">Recent Orders</h2>
             </div>
             <div className="overflow-x-auto">
                 <table className="w-full table-auto">
                     <thead>
-                        <tr className="bg-grey-900 text-white text-sm font-medium">
-                            <th className="px-4 py-3 text-left">Order</th>
-                            <th className="px-4 py-3 text-left">Customer</th>
-                            <th className="px-4 py-3 text-left">Date</th>
-                            <th className="px-4 py-3 text-left">Status</th>
-                            <th className="px-4 py-3 text-right">Amount</th>
+                        <tr className="text-white text-sm font-thin">
+                            <th className="px-4 py-3 text-left font-thin">Product Name</th>
+                            <th className="px-4 py-3 text-left font-thin">Customer</th>
+                            <th className="px-4 py-3 text-left font-thin">Quantity</th>
+                            <th className="px-4 py-3 text-right font-thin">Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="border-b hover:bg-gray-50">
-                            <td className="px-4 py-4 flex items-center space-x-3">
-                                <PackageIcon className="h-5 w-5 text-gray-400" />
-                                <div>
-                                    <p className="font-medium text-white">INV-00234</p>
-                                    <p className="text-sm text-gray-500">Laptop Charger</p>
-                                </div>
-                            </td>
-                            <td className="px-4 py-4">
-                                <p className="font-medium text-white">John Doe</p>
-                                <p className="text-sm text-gray-500">john@example.com</p>
-                            </td>
-                            <td className="px-4 py-4">
-                                <p className="font-medium text-white">Aug 24, 2023</p>
-                                <p className="text-sm text-gray-500">10:34 AM</p>
-                            </td>
-                            <td className="px-4 py-4">
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    Delivered
-                                </span>
-                            </td>
-                            <td className="px-4 py-4 text-right">
-                                <p className="font-medium text-white">$49.99</p>
-                            </td>
-                        </tr>
-
+                        {currentOrders.map(order => (
+                            <tr key={order.id} className="border-b border-gray-800 hover:bg-gray-800">
+                                <td className="px-4 py-4 font-thin">{order.product_name}</td>
+                                <td className="px-4 py-4 font-thin">{order.username}</td>
+                                <td className="px-4 py-4 font-thin">{order.order_quantity}</td>
+                                <td className="px-4 py-4 text-right font-thin">${order.product_price * order.order_quantity}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
+            <div className="px-6 py-4 flex justify-between">
+                <button 
+                    onClick={handlePrevPage}
+                    className="text-lg font-semibold text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <button 
+                    onClick={handleNextPage}
+                    className="text-lg font-semibold text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+                    disabled={currentPage === Math.ceil(orders.length / itemsPerPage)}
+                >
+                    Next
+                </button>
+            </div>
         </div>
-    )
+    );
 }
 
 function PackageIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {

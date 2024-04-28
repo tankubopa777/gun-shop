@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function ProductCard({ product }: { product: any }) {
     return (
         <Link href={`/gun/${product.id}`}>
-            <div className='bg-gray-900 shadow-lg p-6 h-full flex flex-col justify-between cursor-pointer'>
+            <div className='bg-gray-900 shadow-lg p-6 h-full flex flex-col justify-between cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl'>
                 <div>
                     <Image
                         src={product.product_image || "/background/pistalbg.jpeg"}

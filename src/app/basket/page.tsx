@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import { AiFillDelete } from 'react-icons/ai';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Transition from '../components/Transition';
 
 type BasketItem = {
     id: string;
@@ -106,6 +107,7 @@ export default function Basket() {
 
     return (
         <div className="w-full min-h-screen bg-black text-white">
+            <Transition />
             <Navbar />
             <motion.div
                 initial={{ opacity: 0 }}
@@ -127,15 +129,15 @@ export default function Basket() {
                                         <p className="font-bold">{item.name}</p>
                                         <p>{item.detail}</p>
                                     </div>
-                                    <div className="flex items-center">
-                                        <button className="mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleDecrement(item.id)}>-</button>
+                                    {/* <div className="flex items-center">
+                                        <button className="mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleDecrement(item.id)}>-</button> */}
                                         <span>{item.quantity}</span>
-                                        <button className="mx-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleIncrement(item.id)}>+</button>
-                                    </div>
+                                        {/* <button className="mx-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => handleIncrement(item.id)}>+</button>
+                                    </div> */}
                                     <div>
-                                        <p>{item.price} Baht</p>
+                                        <p>{item.price} Dollar</p>
                                     </div>
-                                    <button onClick={() => handleDelete(item.cart_id)} className="text-red-500 hover:text-red-700">
+                                    <button onClick={() => handleDelete(item.cart_id)} className="text-red-500 hover:text-red-700 ml-5">
                                         <AiFillDelete size={24} />
                                     </button>
                                 </div>
@@ -147,7 +149,7 @@ export default function Basket() {
                             </button>
                         </div>
                     ) : (
-                        <p>You have no items in your basket.</p>
+                        <p>You have no guns in your basket.</p>
                     )}
                     <Link href="/gun">
                         <div className="text-green-400 mt-4">Go back to the shop</div>

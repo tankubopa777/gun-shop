@@ -193,15 +193,15 @@ export default function Dashboard() {
                 </div>
                 <div className="flex flex-row w-full mb-8 gap-4">
                    
-            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
                 <h2 className="text-white text-lg mb-2">Total Reviews</h2>
                 <span className="text-white text-4xl font-bold">100</span>
             </div>
-            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
                 <h2 className="text-white text-lg mb-2">Total Guns</h2>
                  <span className="text-white text-4xl font-bold">{allGuns}</span>
             </div>
-            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
             <h2 className="text-white text-lg mb-2">Total Guns</h2>
                 <span className="text-white text-4xl font-bold">50</span>
                 </div>

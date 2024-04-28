@@ -85,7 +85,7 @@ const AboutPage = () => {
                     <CreatorCard
                         name="Warunporn Intarachana"
                         role="Frontend Developer"
-                        bio="Jane has over 10 years of experience building web applications and is passionate about creating user-centric solutions."
+                        bio="Tan has over 10 years of experience building web applications and is passionate about creating user-centric solutions."
                         imageUrl="/profile/tanprofile.jpeg"
                         githubUrl="https://github.com/tankubopa777"
                         linkedinUrl="https://www.linkedin.com/in/warunporn-intarachana-9b7253181/"
@@ -93,7 +93,7 @@ const AboutPage = () => {
                     <CreatorCard
                         name="Viphava Khlaisuwan"
                         role="Backend Developer"
-                        bio="John is a designer who specializes in creating intuitive interfaces and engaging user experiences."
+                        bio="Ohm is a designer who specializes in creating intuitive interfaces and engaging user experiences."
                         imageUrl="/profile/ohmprofile.png"
                         githubUrl="https://github.com/Viphava280444"
                         linkedinUrl="https://www.linkedin.com/in/viphava-khlaisuwan-613439256/"
