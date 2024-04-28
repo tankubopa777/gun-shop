@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import ReactECharts from 'echarts-for-react';
 import { SideBar } from '../components/SideBar';
@@ -7,6 +7,58 @@ import { SideBar } from '../components/SideBar';
 export default function Dashboard() {
     const control = useAnimation();
     const ref = useRef(null);
+    const [allGuns, setAllGuns] = useState([]);
+    const [pieData, setPieData] = useState([]);
+    const [barData, setBarData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8001/product/allProduct', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('All Products Data:', data.Products.length);  
+            setAllGuns(data.Products.length);
+
+            // Aggregate data for pie chart
+            const productTypeCounts = data.Products.reduce((acc, product) => {
+                acc[product.product_type] = (acc[product.product_type] || 0) + 1;
+                return acc;
+            }, {});
+
+            const chartData = Object.keys(productTypeCounts).map(type => ({
+                name: type,
+                value: productTypeCounts[type]
+            }));
+
+            setPieData(chartData);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+    }, []);
+
+    useEffect(() => {
+        fetch('http://localhost:8001/product/getFiveMostReviews/', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const newData = data.Products.map(product => ({
+                name: product.product_name,
+                value: product.reviews_quantity,
+                positive: product['positive(%)'],
+                negative: product['negative(%)']
+            }));
+            setBarData(newData);
+        })
+        .catch(error => {
+            console.error('Error fetching review data:', error);
+        });
+    }, []);
+        
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -58,20 +110,46 @@ export default function Dashboard() {
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
+            },
+            formatter: (params) => {
+                // params is an array of series elements hovered
+                let tooltipContent = [];
+                params.forEach((seriesItem) => {
+                    const productData = seriesItem.data;
+                    tooltipContent.push(
+                        `${productData.name}<br/>Reviews: ${productData.value}<br/>Positive: ${productData.positive}%<br/>Negative: ${productData.negative}%`
+                    );
+                });
+                return tooltipContent.join('');
             }
         },
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: barData.map(item => item.name),
+            axisTick: {
+                alignWithLabel: true
+            }
         },
         yAxis: {
             type: 'value'
         },
         series: [{
-            data: [120, 200, 150, 80, 70, 110, 130],
-            type: 'bar'
+            name: 'Reviews',
+            type: 'bar',
+            barWidth: '60%',
+            data: barData.map(item => ({
+                value: item.value, 
+                name: item.name, 
+                positive: item.positive, 
+                negative: item.negative 
+            })),
+            itemStyle: {
+                barBorderRadius: [2, 2, 0, 0],
+                color: '#0f172a'
+            },
         }]
     };
+    
 
     // Pie Chart Options
     const pieChartOptions = {
@@ -82,17 +160,12 @@ export default function Dashboard() {
             orient: 'vertical',
             left: 'left',
         },
+        color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
         series: [{
-            name: 'Access Source',
+            name: 'Product Type',
             type: 'pie',
             radius: '50%',
-            data: [
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
-            ],
+            data: pieData,
             emphasis: {
                 itemStyle: {
                     shadowBlur: 10,
@@ -112,14 +185,27 @@ export default function Dashboard() {
                 exit={{ opacity: 0 }}
                 className="mx-auto  p-4 w-full h-full flex flex-col justify-center items-center bg-gray-900 bg-opacity-50"
             >
-                {/* <div className="w-full">
-                <ReactECharts option={lineChartOptions} style={{ height: 400, width: '100%' }} />
-                </div> */}
+                <div className="flex flex-row w-full mb-8 gap-4">
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+                <h2 className="text-white text-lg mb-2">Total Reviews</h2>
+                <span className="text-white text-4xl font-bold">100</span>
+            </div>
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+                <h2 className="text-white text-lg mb-2">Total Guns</h2>
+                 <span className="text-white text-4xl font-bold">{allGuns}</span>
+            </div>
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
+            <h2 className="text-white text-lg mb-2">Total Guns</h2>
+                <span className="text-white text-4xl font-bold">50</span>
+                </div>
+            </div>
                 <div className="flex flex-row w-full">
                     <ReactECharts option={barChartOptions} style={{ height: 400, width: '100%' }} />
                     <ReactECharts option={pieChartOptions} style={{ height: 400, width: '100%' }} />
                 </div>
             </motion.div>
+            {/* create button */}
+            
         </div>
     );
 }
