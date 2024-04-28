@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import Transition from '../components/Transition';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/navigation';
+import Footer from '../components/Footer';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -57,7 +58,7 @@ export default function Login() {
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 console.log('Login successful:', data);
-                router.push('/');
+                router.push('../');
                 window.location.reload();
             } else {
                 throw new Error(data.message || 'Failed to login');
@@ -105,10 +106,14 @@ export default function Login() {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Login</button>
+                        <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Login</button>
+                        <div className="flex flex-col justify-center">
+                        <button onClick={() => router.push('/register')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Register</button>
+                    </div>
                     </motion.div>
                 </div>
             </form>
+            <Footer />
         </div>
     );
 }

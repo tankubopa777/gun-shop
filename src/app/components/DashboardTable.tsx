@@ -29,12 +29,12 @@ export default function DashboardTable({ orders }) {
 
     return (
         <div className="bg-gray-900 rounded-lg shadow-sm w-full border-gray-800 border">
-            <div className="px-6 py-4 flex items-center justify-between border-b  border-gray-800">
-                <div className="flex items-center space-x-3">
+            {/* <div className="px-6 py-4 flex items-center justify-between border-b  border-gray-800"> */}
+                {/* <div className="flex items-center space-x-3">
                     <SearchIcon className="h-5 w-5 " />
                     <input className="border-none focus:ring-0 text-sm bg-gray-900" placeholder="Search orders..." type="text" />
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
             <div className="px-6 py-4 border-b border-gray-800">
                 <h2 className="text-lg font-thin text-white">Recent Orders</h2>
             </div>
@@ -61,7 +61,7 @@ export default function DashboardTable({ orders }) {
                 </table>
             </div>
             <div className="px-6 py-4 flex justify-between">
-                <button 
+                {/* <button 
                     onClick={handlePrevPage}
                     className="text-lg font-semibold text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
                     disabled={currentPage === 1}
@@ -74,7 +74,7 @@ export default function DashboardTable({ orders }) {
                     disabled={currentPage === Math.ceil(orders.length / itemsPerPage)}
                 >
                     Next
-                </button>
+                </button> */}
             </div>
         </div>
     );

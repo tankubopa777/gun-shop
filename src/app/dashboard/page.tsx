@@ -58,8 +58,26 @@ export default function Dashboard() {
             console.error('Error fetching review data:', error);
         });
     }, []);
-        
 
+    useEffect(() => {
+        fetch('http://localhost:8001/product/getFiveMostSaled/', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const saledData = data.Products.map(product => ({
+                name: product.product_name,
+                value: product.saled,
+            }));
+            setBarData(saledData);
+        })
+        .catch(error => {
+            console.error('Error fetching most saled product data:', error);
+        });
+    }, []);
+    
+        
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries, observer) => {
@@ -149,6 +167,35 @@ export default function Dashboard() {
             },
         }]
     };
+
+    const barChartSale = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: barData.map(item => item.name),
+            axisTick: {
+                alignWithLabel: true
+            }
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: 'Sales',
+            type: 'bar',
+            barWidth: '60%',
+            data: barData,
+            itemStyle: {
+                barBorderRadius: [2, 2, 0, 0],
+                color: '#0f172a'
+            },
+        }]
+    };
     
 
     // Pie Chart Options
@@ -187,32 +234,38 @@ export default function Dashboard() {
                 className="mx-auto  p-4 w-full h-full flex flex-col justify-center items-center bg-gray-900 bg-opacity-50"
             >
                 <div>
-                    <h1 className="font-thin text-5xl mb-10">
+                    <h1 className="font-thin text-5xl mb-10 translate-y-12">
                         Ours website data
                     </h1>
                 </div>
-                <div className="flex flex-row w-full mb-8 gap-4">
-                   
-            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
+                <div className="flex flex-row w-full mb-8 gap-4 translate-y-5 h-[400px]">
+                <ReactECharts option={pieChartOptions} style={{ height: 200, width: '60%' }} className="mt-5" />
+                
+                
+            {/* <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
                 <h2 className="text-white text-lg mb-2">Total Reviews</h2>
                 <span className="text-white text-4xl font-bold">100</span>
-            </div>
-            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
-                <h2 className="text-white text-lg mb-2">Total Guns</h2>
-                 <span className="text-white text-4xl font-bold">{allGuns}</span>
+            </div> */}
+            <div className="flex flex-col space-y-5 mt-4">
+            <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300 w-[300px] h-[40px]">
+                <h2 className="text-white text-lg mb-2">Gun Type</h2>
+                 <span className="text-white text-4xl font-bold">4</span>
             </div>
             <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md hover:scale-110 transition-transform duration-300">
             <h2 className="text-white text-lg mb-2">Total Guns</h2>
-                <span className="text-white text-4xl font-bold">50</span>
+                <span className="text-white text-4xl font-bold">{allGuns}</span>
                 </div>
+            </div>
             </div>
             <div className="grid grid-cols-2 w-full">
                 <h1 className="font-thin text-5xl">Most Reviews</h1>
-            <h1 className="font-thin text-5xl mb-5">Product Type</h1></div>
+            <h1 className="font-thin text-5xl mb-5">Most Sale</h1></div>
                 <div className="flex flex-row w-full">
                     <ReactECharts option={barChartOptions} style={{ height: 400, width: '100%' }} />
-                    <ReactECharts option={pieChartOptions} style={{ height: 400, width: '100%' }} />
+                    <ReactECharts option={barChartSale} style={{ height: 400, width: '100%' }} />
+                    {/* <ReactECharts option={pieChartOptions} style={{ height: 400, width: '100%' }} /> */}
                 </div>
+                
             </motion.div>
         </div>
     );

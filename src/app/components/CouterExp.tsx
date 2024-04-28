@@ -52,10 +52,10 @@ export default function CounterExp() {
       after:bg-white/10 after:absolute after:top-0 after:right-0"
                 >
                     <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                        <CountUp start={0} end={4} duration={5} delay={0.5} />
+                        <CountUp start={0} end={10} duration={5} delay={0.5} />
                     </div>
                     <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                        Month of experience{" "}
+                        Gun company{" "}
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@ export default function CounterExp() {
                         <CountUp start={0} end={20} duration={5} delay={0.5} /> +
                     </div>
                     <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                        Project{" "}
+                        Movie company{" "}
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@ export default function CounterExp() {
                         <CountUp start={0} end={650} duration={5} delay={0.5} /> +
                     </div>
                     <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                        Finish project{" "}
+                        Sold gun{" "}
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@ export default function CounterExp() {
                         <CountUp start={0} end={2} duration={5} delay={0.5} />
                     </div>
                     <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                        Competition{""}
+                        Competition win{""}
                     </div>
                 </div>
             </div>

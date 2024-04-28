@@ -60,9 +60,9 @@ export default function RegisterComponent() {
             style={{ backgroundImage: 'url("https://images.alphacoders.com/132/1326072.jpeg")' }}>
             <Modal title="Register successful" message="Login and start shopping!" isOpen={openModal} status="success"
                 onUnderstood={() => { router.push('/login'); }} setIsOpen={setOpenModal} />
-            <div className="max-w-lg w-full space-y-8 bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg">
+            <div className="max-w-lg w-full h-full space-y-8 bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg">
                 <div className="m-10">
-                    <h2 className="text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="text-center text-3xl font-thin text-gray-900">
                         Register your account
                     </h2>
                     <p className="text-center text-sm text-gray-600">
