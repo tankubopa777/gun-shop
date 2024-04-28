@@ -179,13 +179,20 @@ export default function Dashboard() {
     return (
         <div className="w-full h-screen bg-black flex flex-row">
             <SideBar />
+            
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
                 exit={{ opacity: 0 }}
                 className="mx-auto  p-4 w-full h-full flex flex-col justify-center items-center bg-gray-900 bg-opacity-50"
             >
+                <div>
+                    <h1 className="font-thin text-5xl mb-10">
+                        Ours website data
+                    </h1>
+                </div>
                 <div className="flex flex-row w-full mb-8 gap-4">
+                   
             <div className="flex-1 flex flex-col justify-center items-center p-6 bg-gray-900 rounded-lg shadow-md">
                 <h2 className="text-white text-lg mb-2">Total Reviews</h2>
                 <span className="text-white text-4xl font-bold">100</span>
@@ -199,13 +206,14 @@ export default function Dashboard() {
                 <span className="text-white text-4xl font-bold">50</span>
                 </div>
             </div>
+            <div className="grid grid-cols-2 w-full">
+                <h1 className="font-thin text-5xl">Most Reviews</h1>
+            <h1 className="font-thin text-5xl mb-5">Product Type</h1></div>
                 <div className="flex flex-row w-full">
                     <ReactECharts option={barChartOptions} style={{ height: 400, width: '100%' }} />
                     <ReactECharts option={pieChartOptions} style={{ height: 400, width: '100%' }} />
                 </div>
             </motion.div>
-            {/* create button */}
-            
         </div>
     );
 }

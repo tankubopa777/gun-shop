@@ -29,8 +29,8 @@ export default function Gun() {
                         name: product.product_name,
                         description: product.product_description,
                         priceRange: `$${product.product_price}`,
-                        image: product.product_image || '/background/sniper_rifle.jpg', // Default image if none
-                        rating: product.reviews ? product.reviews.average : 4 // Default rating if no reviews
+                        image: product.product_image || '/background/sniper_rifle.jpg', 
+                        rating: product.reviews ? product.reviews.average : 4 
                     }));
                     setProducts(formattedData);
                 } else {

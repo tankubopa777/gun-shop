@@ -14,8 +14,50 @@ import Footer from '../components/Footer';
 
 export default function Payment() {
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+    const [basketId, setBasketId] = useState(null);
     const control = useAnimation();
     const ref = useRef(null);
+
+    const submitOrders = async () => {
+        const token = localStorage.getItem('token'); 
+        const headers = {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+    
+        try {
+            const orderPromises = basketItems.map(item => {
+                const orderDetails = {
+                    product_id: parseInt(item.id),
+                    name: item.name,
+                    address: 'User Address', 
+                    phone: 'User Phone',
+                    order_quantity: item.quantity
+                };
+    
+                return fetch('http://localhost:8002/order/buy', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(orderDetails)
+                });
+            });
+    
+            const responses = await Promise.all(orderPromises);
+            const allOrdersSuccessful = responses.every(response => response.ok);
+            
+            if (!allOrdersSuccessful) {
+                throw new Error('One or more orders failed');
+            }
+    
+            console.log('All orders successful');
+            await deleteAllBasketItems(); 
+        } catch (error) {
+            console.error('Error during order submission or basket deletion:', error);
+        }
+    };
+    
+    
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -34,6 +76,8 @@ export default function Payment() {
                 }
 
                 const data = await response.json();
+                setBasketId(data.basketId);
+
                 const items = data.Products.map(product => ({
                     id: String(product.product_id),
                     cart_id : String(product.id),
@@ -69,12 +113,10 @@ export default function Payment() {
             observer.observe(ref.current);
         }
 
-        // Return a cleanup function that does not return any value
         return () => {
             if (ref.current) {
                 observer.unobserve(ref.current);
             }
-            // No return statement needed, implicit return undefined (void)
         };
     }, [control]);
 
@@ -83,6 +125,45 @@ export default function Payment() {
         hidden: { opacity: 0, y: 50 },
         show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
     };
+
+    const deleteAllBasketItems = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('You must be logged in to perform this action.');
+            return;
+        }
+    
+        try {
+            // Map each item to a fetch promise to delete it
+            const deletePromises = basketItems.map(item => {
+                return fetch(`http://localhost:8002/order/deleteBasket?id=${item.cart_id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+            });
+    
+            // Await all fetch promises to complete
+            const responses = await Promise.all(deletePromises);
+            
+            // Check each response for success
+            const allDeletedSuccessfully = responses.every(response => response.ok);
+            if (!allDeletedSuccessfully) {
+                throw new Error('Failed to delete one or more basket items');
+            }
+    
+            // Clear the basketItems from state after all items are successfully deleted
+            setBasketItems([]);
+            alert('All items deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting basket items:', error);
+            alert(error.message);
+        }
+    };
+    
+    
 
     return (
         <div className='bg-black'>
@@ -96,7 +177,7 @@ export default function Payment() {
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <AddressForm />
-                    <PaymentSummary basketItems={basketItems} />
+                    <PaymentSummary basketItems={basketItems} onCheckout={submitOrders} />
                 </div>
             </motion.div>
             <Footer />

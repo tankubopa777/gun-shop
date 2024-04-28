@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-const PaymentSummary = ({ basketItems = [] }) => {
+const PaymentSummary = ({ basketItems = [], onCheckout }) => {
     const total = basketItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     return (
@@ -19,7 +19,8 @@ const PaymentSummary = ({ basketItems = [] }) => {
                 <span className="text-lg font-bold">Total price</span>
                 <span className="text-lg font-bold">{total}</span>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
+            onClick={onCheckout}>
                 Check out
             </button>
         </div>
