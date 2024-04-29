@@ -10,6 +10,9 @@ export default function Dashboard() {
     const [allGuns, setAllGuns] = useState([]);
     const [pieData, setPieData] = useState([]);
     const [barData, setBarData] = useState([]);
+    const [reviewData, setReviewData] = useState([]);
+const [salesData, setSalesData] = useState([]);
+
 
     useEffect(() => {
         fetch('http://localhost:8001/product/allProduct', {
@@ -39,44 +42,46 @@ export default function Dashboard() {
         });
     }, []);
 
-    useEffect(() => {
-        fetch('http://localhost:8001/product/getFiveMostReviews/', {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const newData = data.Products.map(product => ({
-                name: product.product_name,
-                value: product.reviews_quantity,
-                positive: product['positive(%)'],
-                negative: product['negative(%)']
-            }));
-            setBarData(newData);
-        })
-        .catch(error => {
-            console.error('Error fetching review data:', error);
-        });
-    }, []);
+    // Fetch and set review data
+useEffect(() => {
+    fetch('http://localhost:8001/product/getFiveMostReviews/', {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const newData = data.Products.map(product => ({
+            name: product.product_name,
+            value: product.reviews_quantity,
+            positive: product['positive(%)'],
+            negative: product['negative(%)']
+        }));
+        setReviewData(newData);
+    })
+    .catch(error => {
+        console.error('Error fetching review data:', error);
+    });
+}, []);
 
-    useEffect(() => {
-        fetch('http://localhost:8001/product/getFiveMostSaled/', {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const saledData = data.Products.map(product => ({
-                name: product.product_name,
-                value: product.saled,
-            }));
-            setBarData(saledData);
-        })
-        .catch(error => {
-            console.error('Error fetching most saled product data:', error);
-        });
-    }, []);
-    
+// Fetch and set sales data
+useEffect(() => {
+    fetch('http://localhost:8001/product/getFiveMostSaled/', {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const saledData = data.Products.map(product => ({
+            id: product.id,
+            name: product.product_name,
+            value: product.saled,
+        }));
+        setSalesData(saledData);
+    })
+    .catch(error => {
+        console.error('Error fetching most saled product data:', error);
+    });
+}, []);
         
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -130,7 +135,6 @@ export default function Dashboard() {
                 type: 'shadow'
             },
             formatter: (params) => {
-                // params is an array of series elements hovered
                 let tooltipContent = [];
                 params.forEach((seriesItem) => {
                     const productData = seriesItem.data;
@@ -143,7 +147,7 @@ export default function Dashboard() {
         },
         xAxis: {
             type: 'category',
-            data: barData.map(item => item.name),
+            data: reviewData.map(item => item.name),
             axisTick: {
                 alignWithLabel: true
             }
@@ -155,29 +159,35 @@ export default function Dashboard() {
             name: 'Reviews',
             type: 'bar',
             barWidth: '60%',
-            data: barData.map(item => ({
-                value: item.value, 
-                name: item.name, 
-                positive: item.positive, 
-                negative: item.negative 
-            })),
+            data: reviewData,
             itemStyle: {
                 barBorderRadius: [2, 2, 0, 0],
                 color: '#0f172a'
             },
         }]
     };
+    
 
     const barChartSale = {
         tooltip: {
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
+            },
+            formatter: (params) => {
+                let tooltipContent = [];
+                params.forEach((seriesItem) => {
+                    const productData = seriesItem.data;
+                    tooltipContent.push(
+                        `${productData.name}<br/>Sales: ${productData.value}<br/>Product ID: ${productData.id}`
+                    );
+                });
+                return tooltipContent.join('');
             }
         },
         xAxis: {
             type: 'category',
-            data: barData.map(item => item.name),
+            data: salesData.map(item => item.name),
             axisTick: {
                 alignWithLabel: true
             }
@@ -189,13 +199,14 @@ export default function Dashboard() {
             name: 'Sales',
             type: 'bar',
             barWidth: '60%',
-            data: barData,
+            data: salesData,
             itemStyle: {
                 barBorderRadius: [2, 2, 0, 0],
                 color: '#0f172a'
             },
         }]
     };
+    
     
 
     // Pie Chart Options
