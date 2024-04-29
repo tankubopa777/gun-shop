@@ -10,15 +10,24 @@ import Cursor from '../components/Cursor';
 import AddressForm from '../components/AddressForm';
 import PaymentSummary from '../components/PaymentSummary';
 import Footer from '../components/Footer';
+import { useRouter } from 'next/navigation';
 
 
 export default function Payment() {
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
     const [basketId, setBasketId] = useState(null);
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
     const control = useAnimation();
     const ref = useRef(null);
+    const router = useRouter();
 
     const submitOrders = async () => {
+        if (!address || !phone) {
+            alert('Please enter your address and phone number');
+            return;
+        }
+
         const token = localStorage.getItem('token'); 
         const headers = {
             'Accept': 'application/json',
@@ -31,8 +40,8 @@ export default function Payment() {
                 const orderDetails = {
                     product_id: parseInt(item.id),
                     name: item.name,
-                    address: 'User Address', 
-                    phone: 'User Phone',
+                    address: address, 
+                    phone: phone,
                     order_quantity: item.quantity
                 };
     
@@ -52,6 +61,7 @@ export default function Payment() {
     
             console.log('All orders successful');
             await deleteAllBasketItems(); 
+            router.push('../payment/paymentSuccess')
         } catch (error) {
             console.error('Error during order submission or basket deletion:', error);
         }
@@ -156,7 +166,7 @@ export default function Payment() {
     
             // Clear the basketItems from state after all items are successfully deleted
             setBasketItems([]);
-            alert('All items deleted successfully!');
+            alert('payment successfully!!');
         } catch (error) {
             console.error('Error deleting basket items:', error);
             alert(error.message);
@@ -176,8 +186,8 @@ export default function Payment() {
                 className="container mx-auto my-8 p-4"
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <AddressForm />
-                    <PaymentSummary basketItems={basketItems} onCheckout={submitOrders} />
+                <AddressForm address={address} setAddress={setAddress} phone={phone} setPhone={setPhone}/>
+                <PaymentSummary basketItems={basketItems} onCheckout={submitOrders} />
                 </div>
             </motion.div>
             <Footer />

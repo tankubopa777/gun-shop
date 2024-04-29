@@ -10,7 +10,7 @@ export default function RegisterComponent() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const router = useRouter(); // Router initialization
+    const router = useRouter(); 
 
     const handleAuth = async (event: any) => {
         event.preventDefault();
