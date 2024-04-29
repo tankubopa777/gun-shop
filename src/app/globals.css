@@ -25,6 +25,20 @@
   }
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+    animation: spin 1s linear infinite;
+    border-color: #ddd transparent #ddd transparent;
+}
+
 .marquee {
   display: block;
   white-space: nowrap;

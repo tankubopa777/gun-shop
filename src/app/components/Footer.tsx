@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import Dashboard from '../dashboard/page';
 
 const Footer = () => {
     return (
@@ -10,25 +11,24 @@ const Footer = () => {
             <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Column 1 */}
                 <div>
-                    <h5 className="font-bold mb-3">HELLO</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in venenatis enim.</p>
+                    <h5 className="font-bold mb-3">Gun shop</h5>
+                    <p>This is final project ecom application website.</p>
                 </div>
                 {/* Column 2 */}
                 <div>
                     <h5 className="font-bold mb-3">OFFICE</h5>
-                    <p>Germany — 785 15th Street, Office 478 Berlin, De 81566</p>
-                    <p className="mt-4">info@email.com</p>
-                    <p className="mt-2">+1 840 841 25 69</p>
+                    <p>Thailand — Thammasat University, Rangsit Campus, 99 Moo 18, Khlong Luang, Pathum Thani 12120, Thailand</p>
+                    <p className="mt-4">info@tu.ac.th</p>
+                    <p className="mt-2">+66 2 986 9009</p>
                 </div>
                 {/* Column 3 */}
                 <div>
                     <h5 className="font-bold mb-3">LINKS</h5>
                     <ul>
                         <li><Link href="/">Home</Link></li>
-                        <li><Link href="/services">Services</Link></li>
-                        <li><Link href="/about-us">About Us</Link></li>
-                        <li><Link href="/shop">Shop</Link></li>
-                        <li><Link href="/contact">Contact</Link></li>
+                        <li><Link href="/about">About Us</Link></li>
+                        <li><Link href="/gun">Shop</Link></li>
+                        <li><Link href="/dashboard">Dashboard</Link></li>
                     </ul>
                 </div>
                 {/* Column 4 */}

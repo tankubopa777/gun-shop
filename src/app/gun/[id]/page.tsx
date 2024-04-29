@@ -77,7 +77,12 @@ export default function GunDetail() {
     }, [id]);
 
     if (!gunDetails) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex flex-col items-center justify-center h-screen bg-gray-900">
+                <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12 mb-4"></div>
+                <h2 className="text-lg text-gray-700 font-semibold">Loading gun details...</h2>
+            </div>
+        );
     }
 
     const token = localStorage.getItem('token')
@@ -161,8 +166,8 @@ export default function GunDetail() {
                 <div className="mt-8">
                     <h2 className="text-2xl text-white font-thin">USER REVIEW  <span className="text-xl font-thin text-white">All Comment {gunDetails.reviews_quantity}</span></h2>
                     <div className="flex flex-col">
-                    <div className="text-xl font-thin text-white">Positive Comment {gunDetails.positive}</div>
-                    <div className="text-xl font-thin text-white">Negative Comment {gunDetails.negative}</div>
+                        <div className="text-xl font-thin text-white">Positive Comment {gunDetails.positive}</div>
+                        <div className="text-xl font-thin text-white">Negative Comment {gunDetails.negative}</div>
                     </div>
                 </div>
                 <div>
@@ -181,7 +186,7 @@ export default function GunDetail() {
                 {/* Reviews and other sections */}
                 <form onSubmit={handleSubmit}>
                     <h2 className="text-2xl text-black">Add Your Review</h2>
-                     {/* your name */}
+                    {/* your name */}
                     <input
                         type="text"
                         value={userComment}
