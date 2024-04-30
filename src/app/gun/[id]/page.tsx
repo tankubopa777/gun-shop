@@ -202,8 +202,8 @@ export default function GunDetail() {
                         placeholder="Write your review here..."
                         required
                     ></textarea>
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
-                        Submit Review
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-thin py-2 px-4 rounded mt-2">
+                        Post Review
                     </button>
                 </form>
                 <div className='w-full'>
